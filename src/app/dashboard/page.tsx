@@ -22,7 +22,7 @@ import {
   History,
   Mail,
   FileText,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import { getUserWorkspaceData } from "@/lib/auth/workspace";
 import { formatDistanceToNow } from "date-fns";
 import { nb } from "date-fns/locale";

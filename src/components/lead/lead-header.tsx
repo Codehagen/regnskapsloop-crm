@@ -25,7 +25,7 @@ import {
   PencilLine,
   MoveUp,
   CheckCircle,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import { useState } from "react";
 import { toast } from "sonner";
 

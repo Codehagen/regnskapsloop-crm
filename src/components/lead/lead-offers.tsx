@@ -17,7 +17,7 @@ import {
   ChevronDown,
   Pencil,
   Trash,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import { Button } from "@/components/ui/button";
 import {
   Card,

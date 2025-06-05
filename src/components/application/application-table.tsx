@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow, format } from "date-fns";
 import { nb } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
-import { Eye, Edit, Trash } from "lucide-react";
+import { Eye, Edit, Trash } from "@/lib/tabler-icons";
 import { updateApplicationStatus } from "@/app/actions/applications/actions";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";

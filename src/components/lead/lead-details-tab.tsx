@@ -11,7 +11,7 @@ import {
   Calendar,
   DollarSign,
   FileText,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 
 interface LeadDetailsTabProps {
   lead: Business;

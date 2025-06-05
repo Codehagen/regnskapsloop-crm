@@ -5,7 +5,7 @@ import {
   CheckCircle,
   ArrowUpCircle,
   AlertCircle,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import React from "react";
 
 export function getStatusBadgeProps(stage: CustomerStage) {

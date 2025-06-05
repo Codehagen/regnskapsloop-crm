@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Loader2 } from "@/lib/tabler-icons";
 import { createLeadFromOrgNumber } from "@/app/actions/leads/actions";
 
 interface AddLeadModalProps {

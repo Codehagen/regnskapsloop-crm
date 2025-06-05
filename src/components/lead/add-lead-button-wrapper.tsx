@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus } from "@/lib/tabler-icons";
 import { AddLeadModal } from "./add-lead-modal"; // Import the modal
 
 interface AddLeadButtonWrapperProps {

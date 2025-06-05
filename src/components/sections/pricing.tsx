@@ -7,7 +7,7 @@ import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check } from "@/lib/tabler-icons";
 import { useState } from "react";
 
 interface TabsProps {

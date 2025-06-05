@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "@/lib/tabler-icons";
 import { Business, CustomerStage } from "@/app/generated/prisma";
 
 import { Button } from "@/components/ui/button";

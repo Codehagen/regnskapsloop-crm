@@ -15,7 +15,7 @@ import {
   SquareTerminal,
   UserSearch,
   XCircleIcon,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 
 const containerVariants = {
   initial: {},

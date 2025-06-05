@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { updateLeadDetails } from "@/app/actions/leads/actions"; // Import the updated server action
-import { Loader2 } from "lucide-react"; // For loading indicator
+import { Loader2 } from "@/lib/tabler-icons"; // For loading indicator
 
 // Define the Zod schema for the form, mirroring the server action's schema
 const editLeadFormSchema = z.object({

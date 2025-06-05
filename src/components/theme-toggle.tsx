@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "@/lib/tabler-icons";
 import { useTheme } from "next-themes";
 
 export function ThemeToggle() {

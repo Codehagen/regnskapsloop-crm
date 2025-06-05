@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { BookOpen } from "lucide-react";
+import { BookOpen } from "@/lib/tabler-icons";
 import { cn } from "@/lib/utils";
 
 export default function HeroSection() {

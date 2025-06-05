@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useTransition } from "react";
-import { LayoutGrid, Table as TableIcon, Search } from "lucide-react";
+import { LayoutGrid, Table as TableIcon, Search } from "@/lib/tabler-icons";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";

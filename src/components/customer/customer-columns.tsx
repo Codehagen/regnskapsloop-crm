@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, ExternalLink } from "lucide-react";
+import { ArrowUpDown, ExternalLink } from "@/lib/tabler-icons";
 import { Business, CustomerStage } from "@/app/generated/prisma";
 import Link from "next/link";
 

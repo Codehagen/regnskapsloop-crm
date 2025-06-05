@@ -13,7 +13,7 @@ import {
   CalendarDays,
   Loader2,
   Pencil,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import { Button } from "@/components/ui/button";
 import {
   Card,

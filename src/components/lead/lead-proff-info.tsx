@@ -18,7 +18,7 @@ import {
   CircleDollarSign,
   Briefcase,
   BarChart2,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import { Button } from "@/components/ui/button";
 import {
   Card,

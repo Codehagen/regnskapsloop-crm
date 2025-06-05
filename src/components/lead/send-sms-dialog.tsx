@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { Business } from "@/app/generated/prisma";
-import { Send, XIcon } from "lucide-react";
+import { Send, XIcon } from "@/lib/tabler-icons";
 
 import {
   Dialog,

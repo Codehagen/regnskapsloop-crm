@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Send, Mail } from "lucide-react";
+import { Plus, Trash2, Send, Mail } from "@/lib/tabler-icons";
 import { toast } from "sonner";
 import { Business, Offer, OfferItem } from "@/lib/types";
 import {
@@ -36,7 +36,7 @@ import {
   Package,
   PlusCircle,
   SaveIcon,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";

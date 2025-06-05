@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { PageLayout } from "@/components/page-layout";
-import { LayoutGrid, Table as TableIcon, Search, Plus } from "lucide-react";
+import { LayoutGrid, Table as TableIcon, Search, Plus } from "@/lib/tabler-icons";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";

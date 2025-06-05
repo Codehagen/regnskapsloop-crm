@@ -39,7 +39,7 @@ import {
   Paperclip,
   Download,
   X,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 
 // Import server actions
 import {

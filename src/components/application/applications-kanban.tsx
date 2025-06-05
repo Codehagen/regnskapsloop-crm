@@ -19,7 +19,7 @@ import {
   Mail,
   Phone,
   Eye,
-} from "lucide-react";
+} from "@/lib/tabler-icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
