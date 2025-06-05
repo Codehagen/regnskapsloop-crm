@@ -10,6 +10,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { fetchBrregData, mergeBrregData } from "@/lib/brreg"; // Import Brreg functions
+import { searchBrregByName, BrregSearchItem } from "@/lib/brreg"; // Import the new search function
 
 // Get leads (businesses in lead, prospect, qualified stages) for a specific workspace
 export async function getLeads(workspaceId: string): Promise<Business[]> {
@@ -576,6 +577,45 @@ export async function addLeadActivity(formData: FormData) {
     return {
       success: false,
       message: "Klarte ikke å loggføre aktivitet", // "Failed to log activity"
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
+
+// Action to search for companies by name using Brreg API
+export async function searchCompaniesByName(query: string): Promise<{
+  success: boolean;
+  data?: BrregSearchItem[];
+  message?: string;
+  error?: any;
+}> {
+  if (!query || query.trim().length < 2) {
+    return {
+      success: false,
+      message: "Søkeord må være minst 2 tegn langt.",
+    };
+  }
+
+  try {
+    console.log(`Searching for companies with query: "${query}"`);
+
+    const results = await searchBrregByName(query.trim(), 10);
+
+    // Filter out companies that are bankrupt or winding up for better UX
+    const filteredResults = results.filter(
+      (company) => !company.isBankrupt && !company.isWindingUp
+    );
+
+    return {
+      success: true,
+      data: filteredResults,
+      message: `Fant ${filteredResults.length} bedrifter.`,
+    };
+  } catch (error) {
+    console.error(`Error searching companies by name "${query}":`, error);
+    return {
+      success: false,
+      message: "Klarte ikke å søke etter bedrifter.",
       error: error instanceof Error ? error.message : "Unknown error",
     };
   }

@@ -62,6 +62,119 @@ type BusinessUpdateData = Partial<
 
 const BRREG_API_BASE_URL = "https://data.brreg.no/enhetsregisteret/api/enheter";
 
+// Interface for search results from Brreg API
+interface BrregSearchResult {
+  organisasjonsnummer: string;
+  navn: string;
+  organisasjonsform?: { kode?: string; beskrivelse?: string };
+  forretningsadresse?: {
+    adresse?: string[];
+    postnummer?: string;
+    poststed?: string;
+    kommunenummer?: string;
+    kommune?: string;
+    landkode?: string;
+    land?: string;
+  };
+  hjemmeside?: string;
+  naeringskode1?: { kode?: string; beskrivelse?: string };
+  antallAnsatte?: number;
+  registrertIMvaregisteret?: boolean;
+  stiftelsesdato?: string;
+  konkurs?: boolean;
+  underAvvikling?: boolean;
+}
+
+// Interface for search response
+interface BrregSearchResponse {
+  _embedded?: {
+    enheter: BrregSearchResult[];
+  };
+  page?: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
+}
+
+// Interface for simplified search result
+export interface BrregSearchItem {
+  orgNumber: string;
+  name: string;
+  orgForm?: string;
+  address?: string;
+  city?: string;
+  industry?: string;
+  numberOfEmployees?: number;
+  isBankrupt?: boolean;
+  isWindingUp?: boolean;
+}
+
+/**
+ * Searches for companies by name using the Brønnøysundregisteret API.
+ * Returns a list of matching companies with basic information.
+ * @param query - The search query (company name)
+ * @param limit - Maximum number of results to return (default: 10)
+ * @returns Array of BrregSearchItem if found, otherwise empty array
+ */
+export async function searchBrregByName(
+  query: string,
+  limit: number = 10
+): Promise<BrregSearchItem[]> {
+  if (!query.trim()) {
+    console.warn("searchBrregByName called with empty query");
+    return [];
+  }
+
+  const url = `${BRREG_API_BASE_URL}?navn=${encodeURIComponent(
+    query.trim()
+  )}&size=${limit}`;
+  console.log(`Searching Brreg for "${query}" from ${url}`);
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Accept: "application/vnd.brreg.enhetsregisteret.enhet.v2+json",
+      },
+    });
+
+    if (!response.ok) {
+      console.error(
+        `Brreg search API request failed for "${query}": ${response.status} ${response.statusText}`
+      );
+      return [];
+    }
+
+    const data: BrregSearchResponse = await response.json();
+
+    if (!data._embedded?.enheter) {
+      console.log(`No results found for "${query}"`);
+      return [];
+    }
+
+    // Map the results to our simplified format
+    const results: BrregSearchItem[] = data._embedded.enheter.map((item) => ({
+      orgNumber: item.organisasjonsnummer,
+      name: item.navn,
+      orgForm:
+        item.organisasjonsform?.beskrivelse || item.organisasjonsform?.kode,
+      address: item.forretningsadresse?.adresse?.join(", "),
+      city: item.forretningsadresse?.poststed,
+      industry: item.naeringskode1?.beskrivelse,
+      numberOfEmployees: item.antallAnsatte,
+      isBankrupt: item.konkurs || false,
+      isWindingUp: item.underAvvikling || false,
+    }));
+
+    console.log(`Found ${results.length} results for "${query}"`);
+    return results;
+  } catch (error) {
+    console.error(`Error searching Brreg for "${query}":`, error);
+    return [];
+  }
+}
+
 /**
  * Fetches data for a given organization number from the Brønnøysundregisteret API.
  * Handles basic response statuses (200 OK, 404 Not Found, 410 Gone).
