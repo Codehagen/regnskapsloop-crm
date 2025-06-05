@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/db";
-import { Email } from "@/app/generated/prisma";
+import { Email, ActivityType } from "@/app/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { simpleParser } from "mailparser";
@@ -134,6 +134,20 @@ export async function createEmail(
         contactId: emailData.contactId || undefined,
       },
     });
+
+    // Log activity if the email is associated with a lead
+    if (emailData.businessId) {
+      await prisma.activity.create({
+        data: {
+          type: ActivityType.email,
+          date: newEmail.receivedAt ?? newEmail.createdAt,
+          description: newEmail.subject,
+          completed: true,
+          businessId: emailData.businessId,
+          workspaceId: emailData.workspaceId,
+        },
+      });
+    }
 
     // Revalidate relevant paths
     if (emailData.businessId) {
@@ -468,6 +482,18 @@ export async function parseAndCreateEmail(
         messageId: parsedEmail.messageId || undefined,
         inReplyTo: parsedEmail.inReplyTo || undefined,
         priority: parsedEmail.priority || "Normal",
+      },
+    });
+
+    // Log activity for the lead
+    await prisma.activity.create({
+      data: {
+        type: ActivityType.email,
+        date: newEmail.receivedAt ?? newEmail.createdAt,
+        description: newEmail.subject,
+        completed: true,
+        businessId,
+        workspaceId,
       },
     });
 
