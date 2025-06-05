@@ -1,0 +1,320 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/app/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") // Used for direct database connections
+}
+
+// Unified Business/Lead model - Represents companies at any stage (lead to customer)
+model Business {
+  id                String         @id @default(cuid())
+  name              String
+  orgNumber         String?
+  address           String?
+  postalCode        String?
+  city              String?
+  country           String?
+  contactPerson     String?
+  email             String
+  phone             String
+  website           String?
+  industry          String?
+  numberOfEmployees Int?
+  revenue           Float?
+  notes             String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  bilagCount        Int            @default(0)
+  status            BusinessStatus
+  stage             CustomerStage  @default(lead) // Tracks customer lifecycle
+
+  // Fields specifically for leads
+  potensiellVerdi Float? // Potential value (only relevant for leads)
+
+  // Fields potentially enriched from Brreg
+  orgForm         String? // e.g., "ASA", "ENK"
+  industryCode    String? // Næringskode1
+  vatRegistered   Boolean? // registrertIMvaregisteret
+  establishedDate DateTime? // stiftelsesdato
+  isBankrupt      Boolean? // konkurs
+  isWindingUp     Boolean? // underAvvikling
+  brregUpdatedAt  DateTime? // Timestamp of the last successful Brreg update
+
+  // Relations
+  contacts    Contact[]
+  activities  Activity[]
+  offers      Offer[]
+  tags        Tag[]      @relation("BusinessToTag")
+  emails      Email[] // Add email relation
+  workspaceId String // Link to workspace
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("businesses")
+}
+
+enum BusinessStatus {
+  active
+  inactive
+}
+
+enum CustomerStage {
+  lead
+  prospect
+  qualified
+  customer
+  churned
+
+  @@map("customer_stage")
+}
+
+// Tag model - For categorizing businesses
+model Tag {
+  id         String     @id @default(cuid())
+  name       String
+  businesses Business[] @relation("BusinessToTag")
+
+  // Relations
+  workspaceId String // Link to workspace
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  // Ensure tag names are unique within a specific workspace
+  @@unique([workspaceId, name]) // Changed from @@index to @@unique
+  @@map("tags")
+}
+
+// Contact model - People associated with businesses
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  position  String?
+  isPrimary Boolean  @default(false)
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  businessId  String
+  business    Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  activities  Activity[]
+  offers      Offer[]
+  emails      Email[] // Add email relation
+  workspaceId String // Link to workspace
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("contacts")
+}
+
+// Activity model - Interactions with businesses/contacts
+model Activity {
+  id          String       @id @default(cuid())
+  type        ActivityType
+  date        DateTime
+  description String
+  completed   Boolean      @default(false)
+  outcome     String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relations
+  businessId       String?
+  business         Business?       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  contactId        String?
+  contact          Contact?        @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  jobApplicationId String?
+  jobApplication   JobApplication? @relation(fields: [jobApplicationId], references: [id], onDelete: Cascade)
+  userId           String? // Changed from String to optional String FK
+  user             User?           @relation(fields: [userId], references: [id], onDelete: SetNull) // Link to User
+  workspaceId      String // Link to workspace
+  workspace        Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("activities")
+}
+
+enum ActivityType {
+  call
+  meeting
+  email
+  note
+
+  @@map("activity_type")
+}
+
+// Offer model - Sales proposals to businesses
+model Offer {
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  createdAt   DateTime    @default(now())
+  expiresAt   DateTime
+  status      OfferStatus
+  totalAmount Float
+  currency    String
+  notes       String?
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  businessId  String
+  business    Business    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  contactId   String?
+  contact     Contact?    @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  items       OfferItem[]
+  workspaceId String // Link to workspace
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("offers")
+}
+
+enum OfferStatus {
+  draft
+  sent
+  accepted
+  rejected
+  expired
+
+  @@map("offer_status")
+}
+
+// OfferItem model - Line items in an offer
+model OfferItem {
+  id          String @id @default(cuid())
+  description String
+  quantity    Int
+  unitPrice   Float
+  discount    Float?
+  tax         Float?
+  total       Float
+
+  // Relations
+  offerId String
+  offer   Offer  @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  // No direct workspace link needed, inherits from Offer
+
+  @@map("offer_items")
+}
+
+// Email model - For storing email communications
+model Email {
+  id             String    @id @default(cuid())
+  subject        String
+  senderEmail    String
+  senderName     String?
+  recipientEmail String
+  recipientName  String?
+  content        String    @db.Text // Email body content
+  htmlContent    String?   @db.Text // HTML version if available
+  receivedAt     DateTime? // When the email was originally received/sent
+  attachments    Json? // Store attachment metadata as JSON
+  messageId      String? // Original email message ID
+  inReplyTo      String? // For email threading
+  priority       String? // High, Normal, Low
+  isRead         Boolean   @default(false)
+  isImportant    Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  businessId  String?
+  business    Business? @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  contactId   String?
+  contact     Contact?  @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  workspaceId String // Link to workspace
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("emails")
+}
+
+// JobApplication model - For managing employment applications
+model JobApplication {
+  id              String               @id @default(cuid())
+  firstName       String
+  lastName        String
+  email           String
+  phone           String
+  address         String?
+  postalCode      String?
+  city            String?
+  country         String?
+  resume          String? // URL or path to the uploaded resume
+  coverLetter     String? // URL or path to the uploaded cover letter or content
+  experience      Int? // Years of experience
+  education       String?
+  skills          String[]
+  desiredPosition String?
+  currentEmployer String?
+  expectedSalary  Float?
+  startDate       DateTime?
+  notes           String?
+  source          String? // Where the application came from
+  applicationDate DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  status          JobApplicationStatus @default(new)
+
+  // Relations
+  activities  Activity[]
+  workspaceId String // Link to workspace
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("job_applications")
+}
+
+enum JobApplicationStatus {
+  new
+  reviewing
+  interviewed
+  offer_extended
+  hired
+  rejected
+
+  @@map("job_application_status")
+}
+
+// Workspace model - Represents a tenant or organization space
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  apiKey    String   @unique @default(cuid()) // Add unique API key
+
+  // Relations
+  users           User[]           @relation("UserWorkspaces")
+  businesses      Business[]
+  tags            Tag[]
+  contacts        Contact[]
+  activities      Activity[]
+  offers          Offer[]
+  emails          Email[] // Add email relation
+  jobApplications JobApplication[]
+
+  @@map("workspaces")
+}
+
+// User model - Represents users within the application
+model User {
+  id           String   @id @default(cuid())
+  clerkId      String   @unique // Clerk User ID
+  email        String   @unique
+  name         String?
+  isAdmin      Boolean  @default(false) // Add admin flag
+  passwordHash String? // Optional: for email/password auth - might be unnecessary with Clerk
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  workspaces Workspace[] @relation("UserWorkspaces")
+  activities Activity[] // Activities created by this user
+
+  @@map("users")
+}
