@@ -1,7 +1,7 @@
 <h1 align="center">Regnskapsloop: Customer Relationship Management for Accountants</h1>
 
 <p align="center">
-  <img width="1200" alt="Regnskapsloop CRM Dashboard" src="/dashboard-preview.png">
+  <img width="1200" alt="Regnskapsloop CRM Dashboard" src="https://github.com/Codehagen/regnskapsloop-crm/blob/main/public/logo-login.png">
 </p>
 
 <p align="center">
@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/your-repo/regnskapsloop-crm/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/your-repo/regnskapsloop-crm?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
+  <a href="https://github.com/codehagen/regnskapsloop-crm/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/codehagen/regnskapsloop-crm?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
   </a>
 </p>
 

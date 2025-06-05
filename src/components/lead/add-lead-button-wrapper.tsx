@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { AddLeadModal } from "./add-lead-modal"; // Import the modal
+import { AddLeadModal } from "./add-lead-modal";
 
 interface AddLeadButtonWrapperProps {
   workspaceId: string;
