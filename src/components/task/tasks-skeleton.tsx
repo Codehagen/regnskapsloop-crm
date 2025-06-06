@@ -8,39 +8,73 @@ export function TasksSkeleton({
   cardsPerColumn?: number;
 }) {
   return (
-    <div className="flex gap-6 overflow-x-auto pb-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {Array.from({ length: columns }).map((_, colIndex) => (
-        <div key={colIndex} className="flex flex-col w-72 flex-shrink-0">
-          {/* Column Header Skeleton */}
-          <div className="p-3 bg-muted rounded-t-lg mb-4">
-            <div className="flex items-center gap-2 mb-1">
+        <div key={colIndex} className="flex flex-col h-full">
+          {/* Column Header Skeleton - matches actual kanban header */}
+          <div className="mb-2 px-1">
+            <div className="flex items-center gap-1 mb-1">
               <Skeleton className="h-5 w-24" />
               <Skeleton className="h-5 w-8 rounded-full" />
             </div>
             <Skeleton className="h-3 w-32" />
           </div>
-          {/* Card Skeletons */}
-          <div className="flex flex-col gap-3">
-            {Array.from({ length: cardsPerColumn }).map((_, cardIndex) => (
-              <div
-                key={cardIndex}
-                className="p-4 bg-card border rounded-lg shadow-sm"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <Skeleton className="h-4 w-3/4" />
-                  <Skeleton className="h-6 w-16" />
-                </div>
-                <Skeleton className="h-3 w-full mb-2" />
-                <Skeleton className="h-3 w-2/3 mb-3" />
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1">
-                    <Skeleton className="h-5 w-5 rounded-full" />
-                    <Skeleton className="h-3 w-16" />
+
+          {/* Droppable Area Skeleton - matches actual kanban droppable */}
+          <div className="flex-1 min-h-[300px] rounded-lg border border-dashed p-2 bg-muted/40">
+            <div className="flex flex-col gap-2">
+              {Array.from({ length: cardsPerColumn }).map((_, cardIndex) => (
+                <div
+                  key={cardIndex}
+                  className="bg-card border rounded-lg shadow-sm"
+                >
+                  {/* Card Header - matches enhanced task card header */}
+                  <div className="p-2 pb-0">
+                    <div className="flex justify-between items-start">
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-4 w-4" />
+                    </div>
                   </div>
-                  <Skeleton className="h-3 w-12" />
+
+                  {/* Card Content - matches enhanced task card content */}
+                  <div className="p-2 pt-1">
+                    {/* Description skeleton */}
+                    <Skeleton className="h-3 w-full mb-2" />
+                    <Skeleton className="h-3 w-2/3 mb-2" />
+
+                    {/* Information rows skeleton */}
+                    <div className="space-y-1">
+                      {/* Business row */}
+                      <div className="flex items-center gap-1.5">
+                        <Skeleton className="h-3 w-3" />
+                        <Skeleton className="h-3 w-20" />
+                      </div>
+
+                      {/* Assignee row */}
+                      <div className="flex items-center gap-1.5">
+                        <Skeleton className="h-3 w-3" />
+                        <div className="flex items-center gap-1">
+                          <Skeleton className="h-4 w-4 rounded-full" />
+                          <Skeleton className="h-3 w-16" />
+                        </div>
+                      </div>
+
+                      {/* Due date row */}
+                      <div className="flex items-center gap-1.5">
+                        <Skeleton className="h-3 w-3" />
+                        <Skeleton className="h-3 w-24" />
+                      </div>
+
+                      {/* Created date row */}
+                      <div className="flex items-center gap-1.5">
+                        <Skeleton className="h-3 w-3" />
+                        <Skeleton className="h-3 w-20" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       ))}
