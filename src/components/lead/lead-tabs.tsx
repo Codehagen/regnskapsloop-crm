@@ -17,6 +17,7 @@ import { LeadProffInfo } from "./lead-proff-info";
 import { LeadNotes } from "./lead-notes";
 import { LeadOffers } from "./lead-offers";
 import { LeadEmails } from "./lead-emails";
+import { LeadTasks } from "./lead-tasks";
 import { CreateOffer } from "./create-offer";
 import { useState, Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
@@ -65,6 +66,7 @@ export function LeadTabs({
       <TabsList className="w-full md:w-auto">
         <TabsTrigger value="activities">Aktiviteter</TabsTrigger>
         <TabsTrigger value="emails">E-post</TabsTrigger>
+        <TabsTrigger value="tasks">Oppgaver</TabsTrigger>
         {/* <TabsTrigger value="offers">Tilbud</TabsTrigger> */}
         <TabsTrigger value="notes">Notater</TabsTrigger>
         {/* {lead.orgNumber && <TabsTrigger value="proff">Proff Info</TabsTrigger>} */}
@@ -194,6 +196,14 @@ export function LeadTabs({
 
       <TabsContent value="emails">
         <LeadEmails lead={lead} workspaceId={workspaceId} />
+      </TabsContent>
+
+      <TabsContent value="tasks">
+        <Card>
+          <CardContent className="pt-6">
+            <LeadTasks lead={lead} workspaceId={workspaceId} />
+          </CardContent>
+        </Card>
       </TabsContent>
 
       {/* <TabsContent value="offers">

@@ -48,6 +48,11 @@ const data = {
       icon: IconUsers,
     },
     {
+      title: "Oppgaver",
+      url: "/tasks",
+      icon: IconListDetails,
+    },
+    {
       title: "Kunder",
       url: "/customers",
       icon: IconBuilding,

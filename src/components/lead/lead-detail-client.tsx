@@ -36,6 +36,7 @@ import {
 
 import { LeadTabs } from "@/components/lead/lead-tabs";
 import EditLeadSheet from "./edit-lead-sheet";
+import { AddTaskButtonWrapper } from "@/components/task/add-task-button-wrapper";
 
 import { getStatusBadgeProps } from "@/lib/lead-status-utils";
 
@@ -446,6 +447,7 @@ export default function LeadDetailClient({
                 <IconPlus size={16} className="mr-1.5" />
                 Ny aktivitet
               </Button>
+              <AddTaskButtonWrapper workspaceId={workspaceId} businessId={lead.id} />
             </div>
 
             {/* Contact Info Group */}

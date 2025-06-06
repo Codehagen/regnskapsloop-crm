@@ -265,6 +265,21 @@ exports.Prisma.JobApplicationScalarFieldEnum = {
   workspaceId: 'workspaceId'
 };
 
+exports.Prisma.TaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  dueDate: 'dueDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  workspaceId: 'workspaceId',
+  businessId: 'businessId',
+  creatorId: 'creatorId',
+  userId: 'userId'
+};
+
 exports.Prisma.WorkspaceScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -346,6 +361,18 @@ exports.JobApplicationStatus = exports.$Enums.JobApplicationStatus = {
   rejected: 'rejected'
 };
 
+exports.TaskStatus = exports.$Enums.TaskStatus = {
+  ikke_startet: 'ikke_startet',
+  pabegynt: 'pabegynt',
+  ferdig: 'ferdig'
+};
+
+exports.TaskPriority = exports.$Enums.TaskPriority = {
+  low: 'low',
+  medium: 'medium',
+  high: 'high'
+};
+
 exports.Prisma.ModelName = {
   Business: 'Business',
   Tag: 'Tag',
@@ -355,6 +382,7 @@ exports.Prisma.ModelName = {
   OfferItem: 'OfferItem',
   Email: 'Email',
   JobApplication: 'JobApplication',
+  Task: 'Task',
   Workspace: 'Workspace',
   User: 'User'
 };
