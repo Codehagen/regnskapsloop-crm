@@ -280,6 +280,45 @@ enum JobApplicationStatus {
   @@map("job_application_status")
 }
 
+// Task model - Represents tasks that can be assigned to users
+model Task {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus   @default(ikke_startet)
+  priority    TaskPriority @default(medium)
+  dueDate     DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relations
+  workspaceId String
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  businessId  String?
+  business    Business?  @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  assignees   User[]      @relation("TaskAssignees")
+  creatorId   String?
+  creator     User?       @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+
+  @@map("tasks")
+}
+
+enum TaskStatus {
+  ikke_startet
+  pabegynt
+  ferdig
+
+  @@map("task_status")
+}
+
+enum TaskPriority {
+  low
+  medium
+  high
+
+  @@map("task_priority")
+}
+
 // Workspace model - Represents a tenant or organization space
 model Workspace {
   id        String   @id @default(cuid())
@@ -315,6 +354,7 @@ model User {
   // Relations
   workspaces Workspace[] @relation("UserWorkspaces")
   activities Activity[] // Activities created by this user
+  tasks      Task[]     @relation("TaskAssignees")
 
   @@map("users")
 }

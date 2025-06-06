@@ -570,6 +570,32 @@ async function main() {
     `Created ${jobApplicationActivities.length} job application activities`
   );
 
+  // --- Create sample tasks ---
+  const tasks = await Promise.all([
+    prisma.task.create({
+      data: {
+        title: "Følge opp Ola Nordmann",
+        description: "Ring for å avtale møte",
+        priority: "high",
+        status: "ikke_startet",
+        workspaceId: defaultWorkspace.id,
+        businessId: leads[0].id,
+        assignees: { connect: { id: defaultUser.id } },
+      },
+    }),
+    prisma.task.create({
+      data: {
+        title: "Send tilbud til Hansen Konsult",
+        priority: "medium",
+        status: "pabegynt",
+        workspaceId: defaultWorkspace.id,
+        businessId: leads[1].id,
+        assignees: { connect: { id: defaultUser.id } },
+      },
+    }),
+  ]);
+  console.log(`Created ${tasks.length} tasks`);
+
   console.log("Database seeding completed successfully");
 }
 
