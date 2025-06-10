@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useTransition } from "react";
 import { LayoutGrid, Table as TableIcon, Search } from "lucide-react";
+import { IconListCheck } from "@tabler/icons-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
@@ -9,18 +10,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTable } from "@/components/lead/data-table";
 import { KanbanView } from "@/components/lead/kanban-view";
-import { Business, CustomerStage } from "@/app/generated/prisma";
-import { updateLeadStatus } from "@/app/actions/leads/actions"; // Use correct path
-import { searchLeadsAction } from "@/app/actions/leads/searchLeadsAction"; // Import the search action
+import { Business, CustomerStage, Task } from "@/app/generated/prisma";
+import { updateLeadStatus } from "@/app/actions/leads/actions";
+import { searchLeadsAction } from "@/app/actions/leads/searchLeadsAction";
+import { getTasks } from "@/app/actions/tasks/actions";
 import { columns } from "@/components/lead/columns";
+import { taskColumns } from "@/components/task/columns";
 import { LeadsTableSkeleton } from "./leads-skeleton";
 import { EmptyState } from "./empty-state";
-import { KanbanSkeleton } from "./kanban-skeleton"; // Import Kanban Skeleton
+import { KanbanSkeleton } from "./kanban-skeleton";
 
 interface LeadsClientProps {
   initialLeads: Business[];
   workspaceId: string;
 }
+
+type TaskWithRelations = Task & {
+  assignees: { id: string; name: string | null; email: string }[];
+  business?: { id: string; name: string } | null;
+};
 
 // Helper function to get readable status labels (can be moved to utils if used elsewhere)
 const getStageLabel = (stage: CustomerStage): string => {
@@ -39,10 +47,13 @@ export default function LeadsClient({
   workspaceId,
 }: LeadsClientProps) {
   // Track which view is active
-  const [view, setView] = useState<"table" | "kanban">("kanban");
+  const [view, setView] = useState<"table" | "kanban" | "tasks">("kanban");
 
   // State to manage leads data - initialized with server-fetched data
   const [leads, setLeads] = useState<Business[]>(initialLeads);
+  // Tasks state
+  const [tasks, setTasks] = useState<TaskWithRelations[]>([]);
+  const [tasksLoading, setTasksLoading] = useState(false);
   // Start in loading state to show skeleton initially
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,6 +68,24 @@ export default function LeadsClient({
   useEffect(() => {
     setLeads(initialLeads);
   }, [initialLeads]);
+
+  // Load tasks when tasks view is selected
+  useEffect(() => {
+    if (view === "tasks" && tasks.length === 0) {
+      setTasksLoading(true);
+      getTasks(workspaceId)
+        .then((data) => {
+          setTasks(data as TaskWithRelations[]);
+        })
+        .catch((error) => {
+          console.error("Error loading tasks:", error);
+          toast.error("Kunne ikke laste oppgaver");
+        })
+        .finally(() => {
+          setTasksLoading(false);
+        });
+    }
+  }, [view, workspaceId, tasks.length]);
 
   // Function to update a lead's status
   const handleStatusChange = async (
@@ -140,6 +169,31 @@ export default function LeadsClient({
       return view === "table" ? <LeadsTableSkeleton /> : <KanbanSkeleton />;
     }
 
+    // Handle tasks view
+    if (view === "tasks") {
+      if (tasksLoading) {
+        return <LeadsTableSkeleton />; // Reuse table skeleton for tasks
+      }
+
+      if (tasks.length === 0) {
+        return (
+          <EmptyState
+            title="Ingen oppgaver funnet"
+            description="Det er ingen oppgaver i dette arbeidsområdet enda."
+          />
+        );
+      }
+
+      return (
+        <DataTable
+          columns={taskColumns}
+          data={tasks}
+          searchColumn="title"
+          searchPlaceholder="Søk etter oppgaver..."
+        />
+      );
+    }
+
     // Handle empty state *after* search (if search term is present)
     if (leads.length === 0 && searchTerm !== "") {
       return (
@@ -210,9 +264,11 @@ export default function LeadsClient({
         <Tabs
           defaultValue="kanban"
           value={view}
-          onValueChange={(value) => setView(value as "table" | "kanban")}
+          onValueChange={(value) =>
+            setView(value as "table" | "kanban" | "tasks")
+          }
         >
-          <TabsList className="grid w-[200px] grid-cols-2">
+          <TabsList className="grid w-[300px] grid-cols-3">
             <TabsTrigger value="kanban" className="flex items-center gap-2">
               <LayoutGrid className="h-4 w-4" />
               <span>Kanban</span>
@@ -220,6 +276,10 @@ export default function LeadsClient({
             <TabsTrigger value="table" className="flex items-center gap-2">
               <TableIcon className="h-4 w-4" />
               <span>Tabell</span>
+            </TabsTrigger>
+            <TabsTrigger value="tasks" className="flex items-center gap-2">
+              <IconListCheck className="h-4 w-4" />
+              <span>Oppgaver</span>
             </TabsTrigger>
           </TabsList>
         </Tabs>
