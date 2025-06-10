@@ -36,8 +36,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
-import { IconTrash, IconChevronDown, IconX } from "@tabler/icons-react";
+import {
+  IconTrash,
+  IconChevronDown,
+  IconX,
+  IconCalendar,
+} from "@tabler/icons-react";
 import {
   createTask,
   updateTask,
@@ -48,6 +54,8 @@ import {
 import { Task } from "@/app/generated/prisma";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { nb } from "date-fns/locale";
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -71,7 +79,7 @@ export function TaskModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("medium");
-  const [dueDate, setDueDate] = useState<string>("");
+  const [dueDate, setDueDate] = useState<Date | undefined>();
   const [users, setUsers] = useState<
     { id: string; name: string | null; email: string }[]
   >([]);
@@ -90,6 +98,7 @@ export function TaskModal({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [assigneePopoverOpen, setAssigneePopoverOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
   const isEditMode = !!task;
 
@@ -108,9 +117,7 @@ export function TaskModal({
       setTitle(task.title);
       setDescription(task.description || "");
       setPriority(task.priority);
-      setDueDate(
-        task.dueDate ? new Date(task.dueDate).toISOString().split("T")[0] : ""
-      );
+      setDueDate(task.dueDate ? new Date(task.dueDate) : undefined);
       setAssignees(task.assignees.map((a) => a.id));
       setSelectedBusinessId((task as any).businessId || "none");
     } else {
@@ -118,7 +125,7 @@ export function TaskModal({
       setTitle("");
       setDescription("");
       setPriority("medium");
-      setDueDate("");
+      setDueDate(undefined);
       setAssignees([]);
       setSelectedBusinessId(businessId || "none");
     }
@@ -149,7 +156,7 @@ export function TaskModal({
           title,
           description,
           priority: priority as any,
-          dueDate: dueDate ? new Date(dueDate) : undefined,
+          dueDate: dueDate,
           workspaceId,
           businessId:
             selectedBusinessId === "none"
@@ -170,7 +177,7 @@ export function TaskModal({
           title,
           description,
           priority: priority as any,
-          dueDate: dueDate ? new Date(dueDate) : undefined,
+          dueDate: dueDate,
           workspaceId,
           businessId:
             selectedBusinessId === "none"
@@ -251,13 +258,36 @@ export function TaskModal({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="task-due">Frist</Label>
-              <Input
-                id="task-due"
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-              />
+              <Label>Frist</Label>
+              <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !dueDate && "text-muted-foreground"
+                    )}
+                  >
+                    <IconCalendar className="mr-2 h-4 w-4" />
+                    {dueDate ? (
+                      format(dueDate, "PPP", { locale: nb })
+                    ) : (
+                      <span>Velg dato</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={dueDate}
+                    onSelect={(date) => {
+                      setDueDate(date);
+                      setCalendarOpen(false);
+                    }}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="space-y-2">
               <Label>Prioritet</Label>
