@@ -9,6 +9,7 @@ import {
 } from "@/app/actions/settings/actions"; // Import admin check
 import { redirect } from "next/navigation";
 import { WorkspaceForm } from "@/components/settings/workspace-form"; // Import WorkspaceForm
+import { InviteForm } from "@/components/settings/invite-form";
 import { prisma } from "@/lib/db"; // Import prisma for fetching workspace details
 
 export const metadata: Metadata = {
@@ -91,6 +92,7 @@ export default async function SettingsPage() {
           <TabsContent value="workspace" className="space-y-4">
             {/* Integrate the WorkspaceForm */}
             <WorkspaceForm workspace={workspaceData} />
+            <InviteForm workspaceId={workspaceData.id} />
             {/* Other workspace settings components will go here later */}
           </TabsContent>
         )}

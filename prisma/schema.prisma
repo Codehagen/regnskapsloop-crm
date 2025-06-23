@@ -322,6 +322,24 @@ enum TaskPriority {
   @@map("task_priority")
 }
 
+// Invitation for users to join a workspace
+model WorkspaceInvitation {
+  id          String   @id @default(cuid())
+  email       String
+  token       String   @unique
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+
+  // Relations
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  inviterId   String?
+  inviter     User?     @relation(fields: [inviterId], references: [id], onDelete: SetNull)
+
+  @@map("workspace_invitations")
+}
+
 // Workspace model - Represents a tenant or organization space
 model Workspace {
   id        String   @id @default(cuid())

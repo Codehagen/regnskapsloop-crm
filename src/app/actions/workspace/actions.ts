@@ -1,9 +1,10 @@
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser, clerkClient } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { randomUUID } from "crypto";
 
 /**
  * Creates the initial workspace for a newly signed-up user.
@@ -112,4 +113,95 @@ export async function createInitialWorkspace(formData: FormData) {
 
   // Redirect to the main application page after successful creation
   redirect("/");
+}
+
+/**
+ * Invite a user to join a workspace by email.
+ * Requires the current user to be an admin of the workspace.
+ */
+export async function inviteToWorkspace(formData: FormData) {
+  const email = formData.get("email") as string;
+  const workspaceId = formData.get("workspaceId") as string;
+  const user = await currentUser();
+
+  if (!user) {
+    return { success: false, message: "User not authenticated" };
+  }
+
+  const dbUser = await prisma.user.findUnique({
+    where: { clerkId: user.id },
+    include: { workspaces: { where: { id: workspaceId } } },
+  });
+
+  if (!dbUser || !dbUser.isAdmin || dbUser.workspaces.length === 0) {
+    return { success: false, message: "Not authorized" };
+  }
+
+  const token = randomUUID();
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+
+  await prisma.workspaceInvitation.create({
+    data: {
+      email,
+      token,
+      workspaceId,
+      inviterId: dbUser.id,
+      expiresAt,
+    },
+  });
+
+  try {
+    await clerkClient.invitations.createInvitation({
+      emailAddress: email,
+      redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/accept-invite?token=${token}`,
+    });
+  } catch (e) {
+    console.error("Failed to send Clerk invitation", e);
+  }
+
+  revalidatePath("/settings");
+  return { success: true };
+}
+
+/**
+ * Accept an invitation identified by token for the currently logged in user.
+ */
+export async function acceptWorkspaceInvitation(token: string) {
+  const user = await currentUser();
+  if (!user) {
+    return { success: false, message: "User not authenticated" };
+  }
+
+  const invitation = await prisma.workspaceInvitation.findUnique({
+    where: { token },
+  });
+
+  if (!invitation || invitation.expiresAt < new Date() || invitation.acceptedAt) {
+    return { success: false, message: "Invalid invitation" };
+  }
+
+  let dbUser = await prisma.user.findUnique({ where: { clerkId: user.id } });
+  if (!dbUser) {
+    const primaryEmail = user.emailAddresses[0]?.emailAddress;
+    dbUser = await prisma.user.create({
+      data: {
+        clerkId: user.id,
+        email: primaryEmail || "",
+        name: `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || null,
+      },
+    });
+  }
+
+  await prisma.workspace.update({
+    where: { id: invitation.workspaceId },
+    data: { users: { connect: { id: dbUser.id } } },
+  });
+
+  await prisma.workspaceInvitation.update({
+    where: { id: invitation.id },
+    data: { acceptedAt: new Date() },
+  });
+
+  revalidatePath("/");
+  return { success: true };
 }
