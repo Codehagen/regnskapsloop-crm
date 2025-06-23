@@ -113,3 +113,30 @@ export async function createInitialWorkspace(formData: FormData) {
   // Redirect to the main application page after successful creation
   redirect("/");
 }
+
+/**
+ * Gets the current user's workspace
+ */
+export async function getCurrentWorkspace() {
+  const { userId: clerkId } = await auth();
+
+  if (!clerkId) {
+    throw new Error("User is not authenticated.");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId },
+    select: {
+      workspaces: {
+        select: { id: true, name: true },
+        take: 1,
+      },
+    },
+  });
+
+  if (!user?.workspaces[0]) {
+    throw new Error("No workspace found for user.");
+  }
+
+  return user.workspaces[0];
+}

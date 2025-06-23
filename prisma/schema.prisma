@@ -15,6 +15,71 @@ datasource db {
   directUrl = env("DIRECT_URL") // Used for direct database connections
 }
 
+// BRREG Business Registry - All Norwegian companies from BRREG (reference data)
+model BrregBusiness {
+  id          String  @id @default(cuid())
+  orgNumber   String  @unique // Organization number from BRREG
+  name        String
+  orgFormCode String? // AS, ENK, BRL, etc.
+  orgFormDesc String? // Aksjeselskap, Enkeltpersonforetak, etc.
+
+  // NACE codes and industry classification
+  naceCode1 String? // Primary NACE code (e.g., "43.210")
+  naceDesc1 String? // Primary NACE description
+  naceCode2 String? // Secondary NACE code
+  naceDesc2 String? // Secondary NACE description
+  naceCode3 String? // Tertiary NACE code
+  naceDesc3 String? // Tertiary NACE description
+
+  // Proff-style industry categorization
+  industrySection     String? // A-U (e.g., "C" for Industri)
+  industrySectionName String? // Norwegian name (e.g., "Industri")
+
+  // Contact information
+  email   String?
+  phone   String?
+  mobile  String?
+  website String?
+
+  // Business address
+  businessAddress          String?
+  businessCity             String?
+  businessPostalCode       String?
+  businessMunicipality     String?
+  businessMunicipalityCode String?
+
+  // Postal address
+  postalAddress          String?
+  postalCity             String?
+  postalPostalCode       String?
+  postalMunicipality     String?
+  postalMunicipalityCode String?
+
+  // Employee information
+  hasRegisteredEmployees Boolean?
+  numberOfEmployees      Int?
+
+  // Registration dates and status
+  establishedDate DateTime? // stiftelsesdato
+  registeredDate  DateTime? // registreringsdato
+  vatRegistered   Boolean?
+  isBankrupt      Boolean?
+  isWindingUp     Boolean?
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+  @@index([orgNumber])
+  @@index([businessCity])
+  @@index([businessMunicipality])
+  @@index([naceCode1])
+  @@index([orgFormCode])
+  @@index([industrySection])
+  @@map("brreg_businesses")
+}
+
 // Unified Business/Lead model - Represents companies at any stage (lead to customer)
 model Business {
   id                String         @id @default(cuid())
@@ -49,6 +114,9 @@ model Business {
   isBankrupt      Boolean? // konkurs
   isWindingUp     Boolean? // underAvvikling
   brregUpdatedAt  DateTime? // Timestamp of the last successful Brreg update
+
+  // Link to BRREG source (if created from BRREG data)
+  brregOrgNumber String? // Reference to BrregBusiness.orgNumber
 
   // Relations
   contacts    Contact[]

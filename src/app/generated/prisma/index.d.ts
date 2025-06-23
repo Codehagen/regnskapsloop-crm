@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model BrregBusiness
+ * 
+ */
+export type BrregBusiness = $Result.DefaultSelection<Prisma.$BrregBusinessPayload>
+/**
  * Model Business
  * 
  */
@@ -179,8 +184,8 @@ export const TaskPriority: typeof $Enums.TaskPriority
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Businesses
- * const businesses = await prisma.business.findMany()
+ * // Fetch zero or more BrregBusinesses
+ * const brregBusinesses = await prisma.brregBusiness.findMany()
  * ```
  *
  *
@@ -200,8 +205,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Businesses
-   * const businesses = await prisma.business.findMany()
+   * // Fetch zero or more BrregBusinesses
+   * const brregBusinesses = await prisma.brregBusiness.findMany()
    * ```
    *
    *
@@ -298,6 +303,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.brregBusiness`: Exposes CRUD operations for the **BrregBusiness** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BrregBusinesses
+    * const brregBusinesses = await prisma.brregBusiness.findMany()
+    * ```
+    */
+  get brregBusiness(): Prisma.BrregBusinessDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.business`: Exposes CRUD operations for the **Business** model.
     * Example usage:
     * ```ts
@@ -846,6 +861,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    BrregBusiness: 'BrregBusiness',
     Business: 'Business',
     Tag: 'Tag',
     Contact: 'Contact',
@@ -875,10 +891,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "business" | "tag" | "contact" | "activity" | "offer" | "offerItem" | "email" | "jobApplication" | "task" | "workspace" | "user"
+      modelProps: "brregBusiness" | "business" | "tag" | "contact" | "activity" | "offer" | "offerItem" | "email" | "jobApplication" | "task" | "workspace" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      BrregBusiness: {
+        payload: Prisma.$BrregBusinessPayload<ExtArgs>
+        fields: Prisma.BrregBusinessFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BrregBusinessFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BrregBusinessFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>
+          }
+          findFirst: {
+            args: Prisma.BrregBusinessFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BrregBusinessFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>
+          }
+          findMany: {
+            args: Prisma.BrregBusinessFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>[]
+          }
+          create: {
+            args: Prisma.BrregBusinessCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>
+          }
+          createMany: {
+            args: Prisma.BrregBusinessCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BrregBusinessCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>[]
+          }
+          delete: {
+            args: Prisma.BrregBusinessDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>
+          }
+          update: {
+            args: Prisma.BrregBusinessUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>
+          }
+          deleteMany: {
+            args: Prisma.BrregBusinessDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BrregBusinessUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BrregBusinessUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>[]
+          }
+          upsert: {
+            args: Prisma.BrregBusinessUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrregBusinessPayload>
+          }
+          aggregate: {
+            args: Prisma.BrregBusinessAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBrregBusiness>
+          }
+          groupBy: {
+            args: Prisma.BrregBusinessGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BrregBusinessGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BrregBusinessCountArgs<ExtArgs>
+            result: $Utils.Optional<BrregBusinessCountAggregateOutputType> | number
+          }
+        }
+      }
       Business: {
         payload: Prisma.$BusinessPayload<ExtArgs>
         fields: Prisma.BusinessFieldRefs
@@ -1777,6 +1867,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    brregBusiness?: BrregBusinessOmit
     business?: BusinessOmit
     tag?: TagOmit
     contact?: ContactOmit
@@ -2301,6 +2392,1438 @@ export namespace Prisma {
    */
 
   /**
+   * Model BrregBusiness
+   */
+
+  export type AggregateBrregBusiness = {
+    _count: BrregBusinessCountAggregateOutputType | null
+    _avg: BrregBusinessAvgAggregateOutputType | null
+    _sum: BrregBusinessSumAggregateOutputType | null
+    _min: BrregBusinessMinAggregateOutputType | null
+    _max: BrregBusinessMaxAggregateOutputType | null
+  }
+
+  export type BrregBusinessAvgAggregateOutputType = {
+    numberOfEmployees: number | null
+  }
+
+  export type BrregBusinessSumAggregateOutputType = {
+    numberOfEmployees: number | null
+  }
+
+  export type BrregBusinessMinAggregateOutputType = {
+    id: string | null
+    orgNumber: string | null
+    name: string | null
+    orgFormCode: string | null
+    orgFormDesc: string | null
+    naceCode1: string | null
+    naceDesc1: string | null
+    naceCode2: string | null
+    naceDesc2: string | null
+    naceCode3: string | null
+    naceDesc3: string | null
+    industrySection: string | null
+    industrySectionName: string | null
+    email: string | null
+    phone: string | null
+    mobile: string | null
+    website: string | null
+    businessAddress: string | null
+    businessCity: string | null
+    businessPostalCode: string | null
+    businessMunicipality: string | null
+    businessMunicipalityCode: string | null
+    postalAddress: string | null
+    postalCity: string | null
+    postalPostalCode: string | null
+    postalMunicipality: string | null
+    postalMunicipalityCode: string | null
+    hasRegisteredEmployees: boolean | null
+    numberOfEmployees: number | null
+    establishedDate: Date | null
+    registeredDate: Date | null
+    vatRegistered: boolean | null
+    isBankrupt: boolean | null
+    isWindingUp: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BrregBusinessMaxAggregateOutputType = {
+    id: string | null
+    orgNumber: string | null
+    name: string | null
+    orgFormCode: string | null
+    orgFormDesc: string | null
+    naceCode1: string | null
+    naceDesc1: string | null
+    naceCode2: string | null
+    naceDesc2: string | null
+    naceCode3: string | null
+    naceDesc3: string | null
+    industrySection: string | null
+    industrySectionName: string | null
+    email: string | null
+    phone: string | null
+    mobile: string | null
+    website: string | null
+    businessAddress: string | null
+    businessCity: string | null
+    businessPostalCode: string | null
+    businessMunicipality: string | null
+    businessMunicipalityCode: string | null
+    postalAddress: string | null
+    postalCity: string | null
+    postalPostalCode: string | null
+    postalMunicipality: string | null
+    postalMunicipalityCode: string | null
+    hasRegisteredEmployees: boolean | null
+    numberOfEmployees: number | null
+    establishedDate: Date | null
+    registeredDate: Date | null
+    vatRegistered: boolean | null
+    isBankrupt: boolean | null
+    isWindingUp: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BrregBusinessCountAggregateOutputType = {
+    id: number
+    orgNumber: number
+    name: number
+    orgFormCode: number
+    orgFormDesc: number
+    naceCode1: number
+    naceDesc1: number
+    naceCode2: number
+    naceDesc2: number
+    naceCode3: number
+    naceDesc3: number
+    industrySection: number
+    industrySectionName: number
+    email: number
+    phone: number
+    mobile: number
+    website: number
+    businessAddress: number
+    businessCity: number
+    businessPostalCode: number
+    businessMunicipality: number
+    businessMunicipalityCode: number
+    postalAddress: number
+    postalCity: number
+    postalPostalCode: number
+    postalMunicipality: number
+    postalMunicipalityCode: number
+    hasRegisteredEmployees: number
+    numberOfEmployees: number
+    establishedDate: number
+    registeredDate: number
+    vatRegistered: number
+    isBankrupt: number
+    isWindingUp: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BrregBusinessAvgAggregateInputType = {
+    numberOfEmployees?: true
+  }
+
+  export type BrregBusinessSumAggregateInputType = {
+    numberOfEmployees?: true
+  }
+
+  export type BrregBusinessMinAggregateInputType = {
+    id?: true
+    orgNumber?: true
+    name?: true
+    orgFormCode?: true
+    orgFormDesc?: true
+    naceCode1?: true
+    naceDesc1?: true
+    naceCode2?: true
+    naceDesc2?: true
+    naceCode3?: true
+    naceDesc3?: true
+    industrySection?: true
+    industrySectionName?: true
+    email?: true
+    phone?: true
+    mobile?: true
+    website?: true
+    businessAddress?: true
+    businessCity?: true
+    businessPostalCode?: true
+    businessMunicipality?: true
+    businessMunicipalityCode?: true
+    postalAddress?: true
+    postalCity?: true
+    postalPostalCode?: true
+    postalMunicipality?: true
+    postalMunicipalityCode?: true
+    hasRegisteredEmployees?: true
+    numberOfEmployees?: true
+    establishedDate?: true
+    registeredDate?: true
+    vatRegistered?: true
+    isBankrupt?: true
+    isWindingUp?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BrregBusinessMaxAggregateInputType = {
+    id?: true
+    orgNumber?: true
+    name?: true
+    orgFormCode?: true
+    orgFormDesc?: true
+    naceCode1?: true
+    naceDesc1?: true
+    naceCode2?: true
+    naceDesc2?: true
+    naceCode3?: true
+    naceDesc3?: true
+    industrySection?: true
+    industrySectionName?: true
+    email?: true
+    phone?: true
+    mobile?: true
+    website?: true
+    businessAddress?: true
+    businessCity?: true
+    businessPostalCode?: true
+    businessMunicipality?: true
+    businessMunicipalityCode?: true
+    postalAddress?: true
+    postalCity?: true
+    postalPostalCode?: true
+    postalMunicipality?: true
+    postalMunicipalityCode?: true
+    hasRegisteredEmployees?: true
+    numberOfEmployees?: true
+    establishedDate?: true
+    registeredDate?: true
+    vatRegistered?: true
+    isBankrupt?: true
+    isWindingUp?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BrregBusinessCountAggregateInputType = {
+    id?: true
+    orgNumber?: true
+    name?: true
+    orgFormCode?: true
+    orgFormDesc?: true
+    naceCode1?: true
+    naceDesc1?: true
+    naceCode2?: true
+    naceDesc2?: true
+    naceCode3?: true
+    naceDesc3?: true
+    industrySection?: true
+    industrySectionName?: true
+    email?: true
+    phone?: true
+    mobile?: true
+    website?: true
+    businessAddress?: true
+    businessCity?: true
+    businessPostalCode?: true
+    businessMunicipality?: true
+    businessMunicipalityCode?: true
+    postalAddress?: true
+    postalCity?: true
+    postalPostalCode?: true
+    postalMunicipality?: true
+    postalMunicipalityCode?: true
+    hasRegisteredEmployees?: true
+    numberOfEmployees?: true
+    establishedDate?: true
+    registeredDate?: true
+    vatRegistered?: true
+    isBankrupt?: true
+    isWindingUp?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BrregBusinessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BrregBusiness to aggregate.
+     */
+    where?: BrregBusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrregBusinesses to fetch.
+     */
+    orderBy?: BrregBusinessOrderByWithRelationInput | BrregBusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BrregBusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrregBusinesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrregBusinesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BrregBusinesses
+    **/
+    _count?: true | BrregBusinessCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BrregBusinessAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BrregBusinessSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BrregBusinessMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BrregBusinessMaxAggregateInputType
+  }
+
+  export type GetBrregBusinessAggregateType<T extends BrregBusinessAggregateArgs> = {
+        [P in keyof T & keyof AggregateBrregBusiness]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBrregBusiness[P]>
+      : GetScalarType<T[P], AggregateBrregBusiness[P]>
+  }
+
+
+
+
+  export type BrregBusinessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BrregBusinessWhereInput
+    orderBy?: BrregBusinessOrderByWithAggregationInput | BrregBusinessOrderByWithAggregationInput[]
+    by: BrregBusinessScalarFieldEnum[] | BrregBusinessScalarFieldEnum
+    having?: BrregBusinessScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BrregBusinessCountAggregateInputType | true
+    _avg?: BrregBusinessAvgAggregateInputType
+    _sum?: BrregBusinessSumAggregateInputType
+    _min?: BrregBusinessMinAggregateInputType
+    _max?: BrregBusinessMaxAggregateInputType
+  }
+
+  export type BrregBusinessGroupByOutputType = {
+    id: string
+    orgNumber: string
+    name: string
+    orgFormCode: string | null
+    orgFormDesc: string | null
+    naceCode1: string | null
+    naceDesc1: string | null
+    naceCode2: string | null
+    naceDesc2: string | null
+    naceCode3: string | null
+    naceDesc3: string | null
+    industrySection: string | null
+    industrySectionName: string | null
+    email: string | null
+    phone: string | null
+    mobile: string | null
+    website: string | null
+    businessAddress: string | null
+    businessCity: string | null
+    businessPostalCode: string | null
+    businessMunicipality: string | null
+    businessMunicipalityCode: string | null
+    postalAddress: string | null
+    postalCity: string | null
+    postalPostalCode: string | null
+    postalMunicipality: string | null
+    postalMunicipalityCode: string | null
+    hasRegisteredEmployees: boolean | null
+    numberOfEmployees: number | null
+    establishedDate: Date | null
+    registeredDate: Date | null
+    vatRegistered: boolean | null
+    isBankrupt: boolean | null
+    isWindingUp: boolean | null
+    createdAt: Date
+    updatedAt: Date
+    _count: BrregBusinessCountAggregateOutputType | null
+    _avg: BrregBusinessAvgAggregateOutputType | null
+    _sum: BrregBusinessSumAggregateOutputType | null
+    _min: BrregBusinessMinAggregateOutputType | null
+    _max: BrregBusinessMaxAggregateOutputType | null
+  }
+
+  type GetBrregBusinessGroupByPayload<T extends BrregBusinessGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BrregBusinessGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BrregBusinessGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BrregBusinessGroupByOutputType[P]>
+            : GetScalarType<T[P], BrregBusinessGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BrregBusinessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orgNumber?: boolean
+    name?: boolean
+    orgFormCode?: boolean
+    orgFormDesc?: boolean
+    naceCode1?: boolean
+    naceDesc1?: boolean
+    naceCode2?: boolean
+    naceDesc2?: boolean
+    naceCode3?: boolean
+    naceDesc3?: boolean
+    industrySection?: boolean
+    industrySectionName?: boolean
+    email?: boolean
+    phone?: boolean
+    mobile?: boolean
+    website?: boolean
+    businessAddress?: boolean
+    businessCity?: boolean
+    businessPostalCode?: boolean
+    businessMunicipality?: boolean
+    businessMunicipalityCode?: boolean
+    postalAddress?: boolean
+    postalCity?: boolean
+    postalPostalCode?: boolean
+    postalMunicipality?: boolean
+    postalMunicipalityCode?: boolean
+    hasRegisteredEmployees?: boolean
+    numberOfEmployees?: boolean
+    establishedDate?: boolean
+    registeredDate?: boolean
+    vatRegistered?: boolean
+    isBankrupt?: boolean
+    isWindingUp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["brregBusiness"]>
+
+  export type BrregBusinessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orgNumber?: boolean
+    name?: boolean
+    orgFormCode?: boolean
+    orgFormDesc?: boolean
+    naceCode1?: boolean
+    naceDesc1?: boolean
+    naceCode2?: boolean
+    naceDesc2?: boolean
+    naceCode3?: boolean
+    naceDesc3?: boolean
+    industrySection?: boolean
+    industrySectionName?: boolean
+    email?: boolean
+    phone?: boolean
+    mobile?: boolean
+    website?: boolean
+    businessAddress?: boolean
+    businessCity?: boolean
+    businessPostalCode?: boolean
+    businessMunicipality?: boolean
+    businessMunicipalityCode?: boolean
+    postalAddress?: boolean
+    postalCity?: boolean
+    postalPostalCode?: boolean
+    postalMunicipality?: boolean
+    postalMunicipalityCode?: boolean
+    hasRegisteredEmployees?: boolean
+    numberOfEmployees?: boolean
+    establishedDate?: boolean
+    registeredDate?: boolean
+    vatRegistered?: boolean
+    isBankrupt?: boolean
+    isWindingUp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["brregBusiness"]>
+
+  export type BrregBusinessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orgNumber?: boolean
+    name?: boolean
+    orgFormCode?: boolean
+    orgFormDesc?: boolean
+    naceCode1?: boolean
+    naceDesc1?: boolean
+    naceCode2?: boolean
+    naceDesc2?: boolean
+    naceCode3?: boolean
+    naceDesc3?: boolean
+    industrySection?: boolean
+    industrySectionName?: boolean
+    email?: boolean
+    phone?: boolean
+    mobile?: boolean
+    website?: boolean
+    businessAddress?: boolean
+    businessCity?: boolean
+    businessPostalCode?: boolean
+    businessMunicipality?: boolean
+    businessMunicipalityCode?: boolean
+    postalAddress?: boolean
+    postalCity?: boolean
+    postalPostalCode?: boolean
+    postalMunicipality?: boolean
+    postalMunicipalityCode?: boolean
+    hasRegisteredEmployees?: boolean
+    numberOfEmployees?: boolean
+    establishedDate?: boolean
+    registeredDate?: boolean
+    vatRegistered?: boolean
+    isBankrupt?: boolean
+    isWindingUp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["brregBusiness"]>
+
+  export type BrregBusinessSelectScalar = {
+    id?: boolean
+    orgNumber?: boolean
+    name?: boolean
+    orgFormCode?: boolean
+    orgFormDesc?: boolean
+    naceCode1?: boolean
+    naceDesc1?: boolean
+    naceCode2?: boolean
+    naceDesc2?: boolean
+    naceCode3?: boolean
+    naceDesc3?: boolean
+    industrySection?: boolean
+    industrySectionName?: boolean
+    email?: boolean
+    phone?: boolean
+    mobile?: boolean
+    website?: boolean
+    businessAddress?: boolean
+    businessCity?: boolean
+    businessPostalCode?: boolean
+    businessMunicipality?: boolean
+    businessMunicipalityCode?: boolean
+    postalAddress?: boolean
+    postalCity?: boolean
+    postalPostalCode?: boolean
+    postalMunicipality?: boolean
+    postalMunicipalityCode?: boolean
+    hasRegisteredEmployees?: boolean
+    numberOfEmployees?: boolean
+    establishedDate?: boolean
+    registeredDate?: boolean
+    vatRegistered?: boolean
+    isBankrupt?: boolean
+    isWindingUp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BrregBusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orgNumber" | "name" | "orgFormCode" | "orgFormDesc" | "naceCode1" | "naceDesc1" | "naceCode2" | "naceDesc2" | "naceCode3" | "naceDesc3" | "industrySection" | "industrySectionName" | "email" | "phone" | "mobile" | "website" | "businessAddress" | "businessCity" | "businessPostalCode" | "businessMunicipality" | "businessMunicipalityCode" | "postalAddress" | "postalCity" | "postalPostalCode" | "postalMunicipality" | "postalMunicipalityCode" | "hasRegisteredEmployees" | "numberOfEmployees" | "establishedDate" | "registeredDate" | "vatRegistered" | "isBankrupt" | "isWindingUp" | "createdAt" | "updatedAt", ExtArgs["result"]["brregBusiness"]>
+
+  export type $BrregBusinessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BrregBusiness"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      orgNumber: string
+      name: string
+      orgFormCode: string | null
+      orgFormDesc: string | null
+      naceCode1: string | null
+      naceDesc1: string | null
+      naceCode2: string | null
+      naceDesc2: string | null
+      naceCode3: string | null
+      naceDesc3: string | null
+      industrySection: string | null
+      industrySectionName: string | null
+      email: string | null
+      phone: string | null
+      mobile: string | null
+      website: string | null
+      businessAddress: string | null
+      businessCity: string | null
+      businessPostalCode: string | null
+      businessMunicipality: string | null
+      businessMunicipalityCode: string | null
+      postalAddress: string | null
+      postalCity: string | null
+      postalPostalCode: string | null
+      postalMunicipality: string | null
+      postalMunicipalityCode: string | null
+      hasRegisteredEmployees: boolean | null
+      numberOfEmployees: number | null
+      establishedDate: Date | null
+      registeredDate: Date | null
+      vatRegistered: boolean | null
+      isBankrupt: boolean | null
+      isWindingUp: boolean | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["brregBusiness"]>
+    composites: {}
+  }
+
+  type BrregBusinessGetPayload<S extends boolean | null | undefined | BrregBusinessDefaultArgs> = $Result.GetResult<Prisma.$BrregBusinessPayload, S>
+
+  type BrregBusinessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BrregBusinessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BrregBusinessCountAggregateInputType | true
+    }
+
+  export interface BrregBusinessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BrregBusiness'], meta: { name: 'BrregBusiness' } }
+    /**
+     * Find zero or one BrregBusiness that matches the filter.
+     * @param {BrregBusinessFindUniqueArgs} args - Arguments to find a BrregBusiness
+     * @example
+     * // Get one BrregBusiness
+     * const brregBusiness = await prisma.brregBusiness.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BrregBusinessFindUniqueArgs>(args: SelectSubset<T, BrregBusinessFindUniqueArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BrregBusiness that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BrregBusinessFindUniqueOrThrowArgs} args - Arguments to find a BrregBusiness
+     * @example
+     * // Get one BrregBusiness
+     * const brregBusiness = await prisma.brregBusiness.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BrregBusinessFindUniqueOrThrowArgs>(args: SelectSubset<T, BrregBusinessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BrregBusiness that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrregBusinessFindFirstArgs} args - Arguments to find a BrregBusiness
+     * @example
+     * // Get one BrregBusiness
+     * const brregBusiness = await prisma.brregBusiness.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BrregBusinessFindFirstArgs>(args?: SelectSubset<T, BrregBusinessFindFirstArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BrregBusiness that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrregBusinessFindFirstOrThrowArgs} args - Arguments to find a BrregBusiness
+     * @example
+     * // Get one BrregBusiness
+     * const brregBusiness = await prisma.brregBusiness.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BrregBusinessFindFirstOrThrowArgs>(args?: SelectSubset<T, BrregBusinessFindFirstOrThrowArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BrregBusinesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrregBusinessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BrregBusinesses
+     * const brregBusinesses = await prisma.brregBusiness.findMany()
+     * 
+     * // Get first 10 BrregBusinesses
+     * const brregBusinesses = await prisma.brregBusiness.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const brregBusinessWithIdOnly = await prisma.brregBusiness.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BrregBusinessFindManyArgs>(args?: SelectSubset<T, BrregBusinessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BrregBusiness.
+     * @param {BrregBusinessCreateArgs} args - Arguments to create a BrregBusiness.
+     * @example
+     * // Create one BrregBusiness
+     * const BrregBusiness = await prisma.brregBusiness.create({
+     *   data: {
+     *     // ... data to create a BrregBusiness
+     *   }
+     * })
+     * 
+     */
+    create<T extends BrregBusinessCreateArgs>(args: SelectSubset<T, BrregBusinessCreateArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BrregBusinesses.
+     * @param {BrregBusinessCreateManyArgs} args - Arguments to create many BrregBusinesses.
+     * @example
+     * // Create many BrregBusinesses
+     * const brregBusiness = await prisma.brregBusiness.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BrregBusinessCreateManyArgs>(args?: SelectSubset<T, BrregBusinessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BrregBusinesses and returns the data saved in the database.
+     * @param {BrregBusinessCreateManyAndReturnArgs} args - Arguments to create many BrregBusinesses.
+     * @example
+     * // Create many BrregBusinesses
+     * const brregBusiness = await prisma.brregBusiness.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BrregBusinesses and only return the `id`
+     * const brregBusinessWithIdOnly = await prisma.brregBusiness.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BrregBusinessCreateManyAndReturnArgs>(args?: SelectSubset<T, BrregBusinessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BrregBusiness.
+     * @param {BrregBusinessDeleteArgs} args - Arguments to delete one BrregBusiness.
+     * @example
+     * // Delete one BrregBusiness
+     * const BrregBusiness = await prisma.brregBusiness.delete({
+     *   where: {
+     *     // ... filter to delete one BrregBusiness
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BrregBusinessDeleteArgs>(args: SelectSubset<T, BrregBusinessDeleteArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BrregBusiness.
+     * @param {BrregBusinessUpdateArgs} args - Arguments to update one BrregBusiness.
+     * @example
+     * // Update one BrregBusiness
+     * const brregBusiness = await prisma.brregBusiness.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BrregBusinessUpdateArgs>(args: SelectSubset<T, BrregBusinessUpdateArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BrregBusinesses.
+     * @param {BrregBusinessDeleteManyArgs} args - Arguments to filter BrregBusinesses to delete.
+     * @example
+     * // Delete a few BrregBusinesses
+     * const { count } = await prisma.brregBusiness.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BrregBusinessDeleteManyArgs>(args?: SelectSubset<T, BrregBusinessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BrregBusinesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrregBusinessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BrregBusinesses
+     * const brregBusiness = await prisma.brregBusiness.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BrregBusinessUpdateManyArgs>(args: SelectSubset<T, BrregBusinessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BrregBusinesses and returns the data updated in the database.
+     * @param {BrregBusinessUpdateManyAndReturnArgs} args - Arguments to update many BrregBusinesses.
+     * @example
+     * // Update many BrregBusinesses
+     * const brregBusiness = await prisma.brregBusiness.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BrregBusinesses and only return the `id`
+     * const brregBusinessWithIdOnly = await prisma.brregBusiness.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BrregBusinessUpdateManyAndReturnArgs>(args: SelectSubset<T, BrregBusinessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BrregBusiness.
+     * @param {BrregBusinessUpsertArgs} args - Arguments to update or create a BrregBusiness.
+     * @example
+     * // Update or create a BrregBusiness
+     * const brregBusiness = await prisma.brregBusiness.upsert({
+     *   create: {
+     *     // ... data to create a BrregBusiness
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BrregBusiness we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BrregBusinessUpsertArgs>(args: SelectSubset<T, BrregBusinessUpsertArgs<ExtArgs>>): Prisma__BrregBusinessClient<$Result.GetResult<Prisma.$BrregBusinessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BrregBusinesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrregBusinessCountArgs} args - Arguments to filter BrregBusinesses to count.
+     * @example
+     * // Count the number of BrregBusinesses
+     * const count = await prisma.brregBusiness.count({
+     *   where: {
+     *     // ... the filter for the BrregBusinesses we want to count
+     *   }
+     * })
+    **/
+    count<T extends BrregBusinessCountArgs>(
+      args?: Subset<T, BrregBusinessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BrregBusinessCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BrregBusiness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrregBusinessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BrregBusinessAggregateArgs>(args: Subset<T, BrregBusinessAggregateArgs>): Prisma.PrismaPromise<GetBrregBusinessAggregateType<T>>
+
+    /**
+     * Group by BrregBusiness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrregBusinessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BrregBusinessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BrregBusinessGroupByArgs['orderBy'] }
+        : { orderBy?: BrregBusinessGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BrregBusinessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBrregBusinessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BrregBusiness model
+   */
+  readonly fields: BrregBusinessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BrregBusiness.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BrregBusinessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BrregBusiness model
+   */
+  interface BrregBusinessFieldRefs {
+    readonly id: FieldRef<"BrregBusiness", 'String'>
+    readonly orgNumber: FieldRef<"BrregBusiness", 'String'>
+    readonly name: FieldRef<"BrregBusiness", 'String'>
+    readonly orgFormCode: FieldRef<"BrregBusiness", 'String'>
+    readonly orgFormDesc: FieldRef<"BrregBusiness", 'String'>
+    readonly naceCode1: FieldRef<"BrregBusiness", 'String'>
+    readonly naceDesc1: FieldRef<"BrregBusiness", 'String'>
+    readonly naceCode2: FieldRef<"BrregBusiness", 'String'>
+    readonly naceDesc2: FieldRef<"BrregBusiness", 'String'>
+    readonly naceCode3: FieldRef<"BrregBusiness", 'String'>
+    readonly naceDesc3: FieldRef<"BrregBusiness", 'String'>
+    readonly industrySection: FieldRef<"BrregBusiness", 'String'>
+    readonly industrySectionName: FieldRef<"BrregBusiness", 'String'>
+    readonly email: FieldRef<"BrregBusiness", 'String'>
+    readonly phone: FieldRef<"BrregBusiness", 'String'>
+    readonly mobile: FieldRef<"BrregBusiness", 'String'>
+    readonly website: FieldRef<"BrregBusiness", 'String'>
+    readonly businessAddress: FieldRef<"BrregBusiness", 'String'>
+    readonly businessCity: FieldRef<"BrregBusiness", 'String'>
+    readonly businessPostalCode: FieldRef<"BrregBusiness", 'String'>
+    readonly businessMunicipality: FieldRef<"BrregBusiness", 'String'>
+    readonly businessMunicipalityCode: FieldRef<"BrregBusiness", 'String'>
+    readonly postalAddress: FieldRef<"BrregBusiness", 'String'>
+    readonly postalCity: FieldRef<"BrregBusiness", 'String'>
+    readonly postalPostalCode: FieldRef<"BrregBusiness", 'String'>
+    readonly postalMunicipality: FieldRef<"BrregBusiness", 'String'>
+    readonly postalMunicipalityCode: FieldRef<"BrregBusiness", 'String'>
+    readonly hasRegisteredEmployees: FieldRef<"BrregBusiness", 'Boolean'>
+    readonly numberOfEmployees: FieldRef<"BrregBusiness", 'Int'>
+    readonly establishedDate: FieldRef<"BrregBusiness", 'DateTime'>
+    readonly registeredDate: FieldRef<"BrregBusiness", 'DateTime'>
+    readonly vatRegistered: FieldRef<"BrregBusiness", 'Boolean'>
+    readonly isBankrupt: FieldRef<"BrregBusiness", 'Boolean'>
+    readonly isWindingUp: FieldRef<"BrregBusiness", 'Boolean'>
+    readonly createdAt: FieldRef<"BrregBusiness", 'DateTime'>
+    readonly updatedAt: FieldRef<"BrregBusiness", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BrregBusiness findUnique
+   */
+  export type BrregBusinessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * Filter, which BrregBusiness to fetch.
+     */
+    where: BrregBusinessWhereUniqueInput
+  }
+
+  /**
+   * BrregBusiness findUniqueOrThrow
+   */
+  export type BrregBusinessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * Filter, which BrregBusiness to fetch.
+     */
+    where: BrregBusinessWhereUniqueInput
+  }
+
+  /**
+   * BrregBusiness findFirst
+   */
+  export type BrregBusinessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * Filter, which BrregBusiness to fetch.
+     */
+    where?: BrregBusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrregBusinesses to fetch.
+     */
+    orderBy?: BrregBusinessOrderByWithRelationInput | BrregBusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BrregBusinesses.
+     */
+    cursor?: BrregBusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrregBusinesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrregBusinesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BrregBusinesses.
+     */
+    distinct?: BrregBusinessScalarFieldEnum | BrregBusinessScalarFieldEnum[]
+  }
+
+  /**
+   * BrregBusiness findFirstOrThrow
+   */
+  export type BrregBusinessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * Filter, which BrregBusiness to fetch.
+     */
+    where?: BrregBusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrregBusinesses to fetch.
+     */
+    orderBy?: BrregBusinessOrderByWithRelationInput | BrregBusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BrregBusinesses.
+     */
+    cursor?: BrregBusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrregBusinesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrregBusinesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BrregBusinesses.
+     */
+    distinct?: BrregBusinessScalarFieldEnum | BrregBusinessScalarFieldEnum[]
+  }
+
+  /**
+   * BrregBusiness findMany
+   */
+  export type BrregBusinessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * Filter, which BrregBusinesses to fetch.
+     */
+    where?: BrregBusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrregBusinesses to fetch.
+     */
+    orderBy?: BrregBusinessOrderByWithRelationInput | BrregBusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BrregBusinesses.
+     */
+    cursor?: BrregBusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrregBusinesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrregBusinesses.
+     */
+    skip?: number
+    distinct?: BrregBusinessScalarFieldEnum | BrregBusinessScalarFieldEnum[]
+  }
+
+  /**
+   * BrregBusiness create
+   */
+  export type BrregBusinessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * The data needed to create a BrregBusiness.
+     */
+    data: XOR<BrregBusinessCreateInput, BrregBusinessUncheckedCreateInput>
+  }
+
+  /**
+   * BrregBusiness createMany
+   */
+  export type BrregBusinessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BrregBusinesses.
+     */
+    data: BrregBusinessCreateManyInput | BrregBusinessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BrregBusiness createManyAndReturn
+   */
+  export type BrregBusinessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * The data used to create many BrregBusinesses.
+     */
+    data: BrregBusinessCreateManyInput | BrregBusinessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BrregBusiness update
+   */
+  export type BrregBusinessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * The data needed to update a BrregBusiness.
+     */
+    data: XOR<BrregBusinessUpdateInput, BrregBusinessUncheckedUpdateInput>
+    /**
+     * Choose, which BrregBusiness to update.
+     */
+    where: BrregBusinessWhereUniqueInput
+  }
+
+  /**
+   * BrregBusiness updateMany
+   */
+  export type BrregBusinessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BrregBusinesses.
+     */
+    data: XOR<BrregBusinessUpdateManyMutationInput, BrregBusinessUncheckedUpdateManyInput>
+    /**
+     * Filter which BrregBusinesses to update
+     */
+    where?: BrregBusinessWhereInput
+    /**
+     * Limit how many BrregBusinesses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BrregBusiness updateManyAndReturn
+   */
+  export type BrregBusinessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * The data used to update BrregBusinesses.
+     */
+    data: XOR<BrregBusinessUpdateManyMutationInput, BrregBusinessUncheckedUpdateManyInput>
+    /**
+     * Filter which BrregBusinesses to update
+     */
+    where?: BrregBusinessWhereInput
+    /**
+     * Limit how many BrregBusinesses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BrregBusiness upsert
+   */
+  export type BrregBusinessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * The filter to search for the BrregBusiness to update in case it exists.
+     */
+    where: BrregBusinessWhereUniqueInput
+    /**
+     * In case the BrregBusiness found by the `where` argument doesn't exist, create a new BrregBusiness with this data.
+     */
+    create: XOR<BrregBusinessCreateInput, BrregBusinessUncheckedCreateInput>
+    /**
+     * In case the BrregBusiness was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BrregBusinessUpdateInput, BrregBusinessUncheckedUpdateInput>
+  }
+
+  /**
+   * BrregBusiness delete
+   */
+  export type BrregBusinessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+    /**
+     * Filter which BrregBusiness to delete.
+     */
+    where: BrregBusinessWhereUniqueInput
+  }
+
+  /**
+   * BrregBusiness deleteMany
+   */
+  export type BrregBusinessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BrregBusinesses to delete
+     */
+    where?: BrregBusinessWhereInput
+    /**
+     * Limit how many BrregBusinesses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BrregBusiness without action
+   */
+  export type BrregBusinessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrregBusiness
+     */
+    select?: BrregBusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrregBusiness
+     */
+    omit?: BrregBusinessOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model Business
    */
 
@@ -2355,6 +3878,7 @@ export namespace Prisma {
     isBankrupt: boolean | null
     isWindingUp: boolean | null
     brregUpdatedAt: Date | null
+    brregOrgNumber: string | null
     workspaceId: string | null
   }
 
@@ -2387,6 +3911,7 @@ export namespace Prisma {
     isBankrupt: boolean | null
     isWindingUp: boolean | null
     brregUpdatedAt: Date | null
+    brregOrgNumber: string | null
     workspaceId: string | null
   }
 
@@ -2419,6 +3944,7 @@ export namespace Prisma {
     isBankrupt: number
     isWindingUp: number
     brregUpdatedAt: number
+    brregOrgNumber: number
     workspaceId: number
     _all: number
   }
@@ -2467,6 +3993,7 @@ export namespace Prisma {
     isBankrupt?: true
     isWindingUp?: true
     brregUpdatedAt?: true
+    brregOrgNumber?: true
     workspaceId?: true
   }
 
@@ -2499,6 +4026,7 @@ export namespace Prisma {
     isBankrupt?: true
     isWindingUp?: true
     brregUpdatedAt?: true
+    brregOrgNumber?: true
     workspaceId?: true
   }
 
@@ -2531,6 +4059,7 @@ export namespace Prisma {
     isBankrupt?: true
     isWindingUp?: true
     brregUpdatedAt?: true
+    brregOrgNumber?: true
     workspaceId?: true
     _all?: true
   }
@@ -2650,6 +4179,7 @@ export namespace Prisma {
     isBankrupt: boolean | null
     isWindingUp: boolean | null
     brregUpdatedAt: Date | null
+    brregOrgNumber: string | null
     workspaceId: string
     _count: BusinessCountAggregateOutputType | null
     _avg: BusinessAvgAggregateOutputType | null
@@ -2701,6 +4231,7 @@ export namespace Prisma {
     isBankrupt?: boolean
     isWindingUp?: boolean
     brregUpdatedAt?: boolean
+    brregOrgNumber?: boolean
     workspaceId?: boolean
     contacts?: boolean | Business$contactsArgs<ExtArgs>
     activities?: boolean | Business$activitiesArgs<ExtArgs>
@@ -2741,6 +4272,7 @@ export namespace Prisma {
     isBankrupt?: boolean
     isWindingUp?: boolean
     brregUpdatedAt?: boolean
+    brregOrgNumber?: boolean
     workspaceId?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["business"]>
@@ -2774,6 +4306,7 @@ export namespace Prisma {
     isBankrupt?: boolean
     isWindingUp?: boolean
     brregUpdatedAt?: boolean
+    brregOrgNumber?: boolean
     workspaceId?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["business"]>
@@ -2807,10 +4340,11 @@ export namespace Prisma {
     isBankrupt?: boolean
     isWindingUp?: boolean
     brregUpdatedAt?: boolean
+    brregOrgNumber?: boolean
     workspaceId?: boolean
   }
 
-  export type BusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "orgNumber" | "address" | "postalCode" | "city" | "country" | "contactPerson" | "email" | "phone" | "website" | "industry" | "numberOfEmployees" | "revenue" | "notes" | "createdAt" | "updatedAt" | "bilagCount" | "status" | "stage" | "potensiellVerdi" | "orgForm" | "industryCode" | "vatRegistered" | "establishedDate" | "isBankrupt" | "isWindingUp" | "brregUpdatedAt" | "workspaceId", ExtArgs["result"]["business"]>
+  export type BusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "orgNumber" | "address" | "postalCode" | "city" | "country" | "contactPerson" | "email" | "phone" | "website" | "industry" | "numberOfEmployees" | "revenue" | "notes" | "createdAt" | "updatedAt" | "bilagCount" | "status" | "stage" | "potensiellVerdi" | "orgForm" | "industryCode" | "vatRegistered" | "establishedDate" | "isBankrupt" | "isWindingUp" | "brregUpdatedAt" | "brregOrgNumber" | "workspaceId", ExtArgs["result"]["business"]>
   export type BusinessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contacts?: boolean | Business$contactsArgs<ExtArgs>
     activities?: boolean | Business$activitiesArgs<ExtArgs>
@@ -2868,6 +4402,7 @@ export namespace Prisma {
       isBankrupt: boolean | null
       isWindingUp: boolean | null
       brregUpdatedAt: Date | null
+      brregOrgNumber: string | null
       workspaceId: string
     }, ExtArgs["result"]["business"]>
     composites: {}
@@ -3327,6 +4862,7 @@ export namespace Prisma {
     readonly isBankrupt: FieldRef<"Business", 'Boolean'>
     readonly isWindingUp: FieldRef<"Business", 'Boolean'>
     readonly brregUpdatedAt: FieldRef<"Business", 'DateTime'>
+    readonly brregOrgNumber: FieldRef<"Business", 'String'>
     readonly workspaceId: FieldRef<"Business", 'String'>
   }
     
@@ -16317,6 +17853,48 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const BrregBusinessScalarFieldEnum: {
+    id: 'id',
+    orgNumber: 'orgNumber',
+    name: 'name',
+    orgFormCode: 'orgFormCode',
+    orgFormDesc: 'orgFormDesc',
+    naceCode1: 'naceCode1',
+    naceDesc1: 'naceDesc1',
+    naceCode2: 'naceCode2',
+    naceDesc2: 'naceDesc2',
+    naceCode3: 'naceCode3',
+    naceDesc3: 'naceDesc3',
+    industrySection: 'industrySection',
+    industrySectionName: 'industrySectionName',
+    email: 'email',
+    phone: 'phone',
+    mobile: 'mobile',
+    website: 'website',
+    businessAddress: 'businessAddress',
+    businessCity: 'businessCity',
+    businessPostalCode: 'businessPostalCode',
+    businessMunicipality: 'businessMunicipality',
+    businessMunicipalityCode: 'businessMunicipalityCode',
+    postalAddress: 'postalAddress',
+    postalCity: 'postalCity',
+    postalPostalCode: 'postalPostalCode',
+    postalMunicipality: 'postalMunicipality',
+    postalMunicipalityCode: 'postalMunicipalityCode',
+    hasRegisteredEmployees: 'hasRegisteredEmployees',
+    numberOfEmployees: 'numberOfEmployees',
+    establishedDate: 'establishedDate',
+    registeredDate: 'registeredDate',
+    vatRegistered: 'vatRegistered',
+    isBankrupt: 'isBankrupt',
+    isWindingUp: 'isWindingUp',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BrregBusinessScalarFieldEnum = (typeof BrregBusinessScalarFieldEnum)[keyof typeof BrregBusinessScalarFieldEnum]
+
+
   export const BusinessScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -16346,6 +17924,7 @@ export namespace Prisma {
     isBankrupt: 'isBankrupt',
     isWindingUp: 'isWindingUp',
     brregUpdatedAt: 'brregUpdatedAt',
+    brregOrgNumber: 'brregOrgNumber',
     workspaceId: 'workspaceId'
   };
 
@@ -16590,6 +18169,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -16604,20 +18190,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -16628,6 +18200,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -16656,13 +18242,6 @@ export namespace Prisma {
    * Reference to a field of type 'CustomerStage[]'
    */
   export type ListEnumCustomerStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerStage[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -16753,6 +18332,215 @@ export namespace Prisma {
    */
 
 
+  export type BrregBusinessWhereInput = {
+    AND?: BrregBusinessWhereInput | BrregBusinessWhereInput[]
+    OR?: BrregBusinessWhereInput[]
+    NOT?: BrregBusinessWhereInput | BrregBusinessWhereInput[]
+    id?: StringFilter<"BrregBusiness"> | string
+    orgNumber?: StringFilter<"BrregBusiness"> | string
+    name?: StringFilter<"BrregBusiness"> | string
+    orgFormCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    orgFormDesc?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceCode1?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceDesc1?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceCode2?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceDesc2?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceCode3?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceDesc3?: StringNullableFilter<"BrregBusiness"> | string | null
+    industrySection?: StringNullableFilter<"BrregBusiness"> | string | null
+    industrySectionName?: StringNullableFilter<"BrregBusiness"> | string | null
+    email?: StringNullableFilter<"BrregBusiness"> | string | null
+    phone?: StringNullableFilter<"BrregBusiness"> | string | null
+    mobile?: StringNullableFilter<"BrregBusiness"> | string | null
+    website?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessAddress?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessCity?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessPostalCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessMunicipality?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessMunicipalityCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalAddress?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalCity?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalPostalCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalMunicipality?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalMunicipalityCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    hasRegisteredEmployees?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    numberOfEmployees?: IntNullableFilter<"BrregBusiness"> | number | null
+    establishedDate?: DateTimeNullableFilter<"BrregBusiness"> | Date | string | null
+    registeredDate?: DateTimeNullableFilter<"BrregBusiness"> | Date | string | null
+    vatRegistered?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    isBankrupt?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    isWindingUp?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    createdAt?: DateTimeFilter<"BrregBusiness"> | Date | string
+    updatedAt?: DateTimeFilter<"BrregBusiness"> | Date | string
+  }
+
+  export type BrregBusinessOrderByWithRelationInput = {
+    id?: SortOrder
+    orgNumber?: SortOrder
+    name?: SortOrder
+    orgFormCode?: SortOrderInput | SortOrder
+    orgFormDesc?: SortOrderInput | SortOrder
+    naceCode1?: SortOrderInput | SortOrder
+    naceDesc1?: SortOrderInput | SortOrder
+    naceCode2?: SortOrderInput | SortOrder
+    naceDesc2?: SortOrderInput | SortOrder
+    naceCode3?: SortOrderInput | SortOrder
+    naceDesc3?: SortOrderInput | SortOrder
+    industrySection?: SortOrderInput | SortOrder
+    industrySectionName?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    mobile?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    businessAddress?: SortOrderInput | SortOrder
+    businessCity?: SortOrderInput | SortOrder
+    businessPostalCode?: SortOrderInput | SortOrder
+    businessMunicipality?: SortOrderInput | SortOrder
+    businessMunicipalityCode?: SortOrderInput | SortOrder
+    postalAddress?: SortOrderInput | SortOrder
+    postalCity?: SortOrderInput | SortOrder
+    postalPostalCode?: SortOrderInput | SortOrder
+    postalMunicipality?: SortOrderInput | SortOrder
+    postalMunicipalityCode?: SortOrderInput | SortOrder
+    hasRegisteredEmployees?: SortOrderInput | SortOrder
+    numberOfEmployees?: SortOrderInput | SortOrder
+    establishedDate?: SortOrderInput | SortOrder
+    registeredDate?: SortOrderInput | SortOrder
+    vatRegistered?: SortOrderInput | SortOrder
+    isBankrupt?: SortOrderInput | SortOrder
+    isWindingUp?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BrregBusinessWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    orgNumber?: string
+    AND?: BrregBusinessWhereInput | BrregBusinessWhereInput[]
+    OR?: BrregBusinessWhereInput[]
+    NOT?: BrregBusinessWhereInput | BrregBusinessWhereInput[]
+    name?: StringFilter<"BrregBusiness"> | string
+    orgFormCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    orgFormDesc?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceCode1?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceDesc1?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceCode2?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceDesc2?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceCode3?: StringNullableFilter<"BrregBusiness"> | string | null
+    naceDesc3?: StringNullableFilter<"BrregBusiness"> | string | null
+    industrySection?: StringNullableFilter<"BrregBusiness"> | string | null
+    industrySectionName?: StringNullableFilter<"BrregBusiness"> | string | null
+    email?: StringNullableFilter<"BrregBusiness"> | string | null
+    phone?: StringNullableFilter<"BrregBusiness"> | string | null
+    mobile?: StringNullableFilter<"BrregBusiness"> | string | null
+    website?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessAddress?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessCity?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessPostalCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessMunicipality?: StringNullableFilter<"BrregBusiness"> | string | null
+    businessMunicipalityCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalAddress?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalCity?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalPostalCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalMunicipality?: StringNullableFilter<"BrregBusiness"> | string | null
+    postalMunicipalityCode?: StringNullableFilter<"BrregBusiness"> | string | null
+    hasRegisteredEmployees?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    numberOfEmployees?: IntNullableFilter<"BrregBusiness"> | number | null
+    establishedDate?: DateTimeNullableFilter<"BrregBusiness"> | Date | string | null
+    registeredDate?: DateTimeNullableFilter<"BrregBusiness"> | Date | string | null
+    vatRegistered?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    isBankrupt?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    isWindingUp?: BoolNullableFilter<"BrregBusiness"> | boolean | null
+    createdAt?: DateTimeFilter<"BrregBusiness"> | Date | string
+    updatedAt?: DateTimeFilter<"BrregBusiness"> | Date | string
+  }, "id" | "orgNumber">
+
+  export type BrregBusinessOrderByWithAggregationInput = {
+    id?: SortOrder
+    orgNumber?: SortOrder
+    name?: SortOrder
+    orgFormCode?: SortOrderInput | SortOrder
+    orgFormDesc?: SortOrderInput | SortOrder
+    naceCode1?: SortOrderInput | SortOrder
+    naceDesc1?: SortOrderInput | SortOrder
+    naceCode2?: SortOrderInput | SortOrder
+    naceDesc2?: SortOrderInput | SortOrder
+    naceCode3?: SortOrderInput | SortOrder
+    naceDesc3?: SortOrderInput | SortOrder
+    industrySection?: SortOrderInput | SortOrder
+    industrySectionName?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    mobile?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    businessAddress?: SortOrderInput | SortOrder
+    businessCity?: SortOrderInput | SortOrder
+    businessPostalCode?: SortOrderInput | SortOrder
+    businessMunicipality?: SortOrderInput | SortOrder
+    businessMunicipalityCode?: SortOrderInput | SortOrder
+    postalAddress?: SortOrderInput | SortOrder
+    postalCity?: SortOrderInput | SortOrder
+    postalPostalCode?: SortOrderInput | SortOrder
+    postalMunicipality?: SortOrderInput | SortOrder
+    postalMunicipalityCode?: SortOrderInput | SortOrder
+    hasRegisteredEmployees?: SortOrderInput | SortOrder
+    numberOfEmployees?: SortOrderInput | SortOrder
+    establishedDate?: SortOrderInput | SortOrder
+    registeredDate?: SortOrderInput | SortOrder
+    vatRegistered?: SortOrderInput | SortOrder
+    isBankrupt?: SortOrderInput | SortOrder
+    isWindingUp?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BrregBusinessCountOrderByAggregateInput
+    _avg?: BrregBusinessAvgOrderByAggregateInput
+    _max?: BrregBusinessMaxOrderByAggregateInput
+    _min?: BrregBusinessMinOrderByAggregateInput
+    _sum?: BrregBusinessSumOrderByAggregateInput
+  }
+
+  export type BrregBusinessScalarWhereWithAggregatesInput = {
+    AND?: BrregBusinessScalarWhereWithAggregatesInput | BrregBusinessScalarWhereWithAggregatesInput[]
+    OR?: BrregBusinessScalarWhereWithAggregatesInput[]
+    NOT?: BrregBusinessScalarWhereWithAggregatesInput | BrregBusinessScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BrregBusiness"> | string
+    orgNumber?: StringWithAggregatesFilter<"BrregBusiness"> | string
+    name?: StringWithAggregatesFilter<"BrregBusiness"> | string
+    orgFormCode?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    orgFormDesc?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    naceCode1?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    naceDesc1?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    naceCode2?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    naceDesc2?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    naceCode3?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    naceDesc3?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    industrySection?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    industrySectionName?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    email?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    mobile?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    website?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    businessAddress?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    businessCity?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    businessPostalCode?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    businessMunicipality?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    businessMunicipalityCode?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    postalAddress?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    postalCity?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    postalPostalCode?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    postalMunicipality?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    postalMunicipalityCode?: StringNullableWithAggregatesFilter<"BrregBusiness"> | string | null
+    hasRegisteredEmployees?: BoolNullableWithAggregatesFilter<"BrregBusiness"> | boolean | null
+    numberOfEmployees?: IntNullableWithAggregatesFilter<"BrregBusiness"> | number | null
+    establishedDate?: DateTimeNullableWithAggregatesFilter<"BrregBusiness"> | Date | string | null
+    registeredDate?: DateTimeNullableWithAggregatesFilter<"BrregBusiness"> | Date | string | null
+    vatRegistered?: BoolNullableWithAggregatesFilter<"BrregBusiness"> | boolean | null
+    isBankrupt?: BoolNullableWithAggregatesFilter<"BrregBusiness"> | boolean | null
+    isWindingUp?: BoolNullableWithAggregatesFilter<"BrregBusiness"> | boolean | null
+    createdAt?: DateTimeWithAggregatesFilter<"BrregBusiness"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BrregBusiness"> | Date | string
+  }
+
   export type BusinessWhereInput = {
     AND?: BusinessWhereInput | BusinessWhereInput[]
     OR?: BusinessWhereInput[]
@@ -16785,6 +18573,7 @@ export namespace Prisma {
     isBankrupt?: BoolNullableFilter<"Business"> | boolean | null
     isWindingUp?: BoolNullableFilter<"Business"> | boolean | null
     brregUpdatedAt?: DateTimeNullableFilter<"Business"> | Date | string | null
+    brregOrgNumber?: StringNullableFilter<"Business"> | string | null
     workspaceId?: StringFilter<"Business"> | string
     contacts?: ContactListRelationFilter
     activities?: ActivityListRelationFilter
@@ -16824,6 +18613,7 @@ export namespace Prisma {
     isBankrupt?: SortOrderInput | SortOrder
     isWindingUp?: SortOrderInput | SortOrder
     brregUpdatedAt?: SortOrderInput | SortOrder
+    brregOrgNumber?: SortOrderInput | SortOrder
     workspaceId?: SortOrder
     contacts?: ContactOrderByRelationAggregateInput
     activities?: ActivityOrderByRelationAggregateInput
@@ -16866,6 +18656,7 @@ export namespace Prisma {
     isBankrupt?: BoolNullableFilter<"Business"> | boolean | null
     isWindingUp?: BoolNullableFilter<"Business"> | boolean | null
     brregUpdatedAt?: DateTimeNullableFilter<"Business"> | Date | string | null
+    brregOrgNumber?: StringNullableFilter<"Business"> | string | null
     workspaceId?: StringFilter<"Business"> | string
     contacts?: ContactListRelationFilter
     activities?: ActivityListRelationFilter
@@ -16905,6 +18696,7 @@ export namespace Prisma {
     isBankrupt?: SortOrderInput | SortOrder
     isWindingUp?: SortOrderInput | SortOrder
     brregUpdatedAt?: SortOrderInput | SortOrder
+    brregOrgNumber?: SortOrderInput | SortOrder
     workspaceId?: SortOrder
     _count?: BusinessCountOrderByAggregateInput
     _avg?: BusinessAvgOrderByAggregateInput
@@ -16945,6 +18737,7 @@ export namespace Prisma {
     isBankrupt?: BoolNullableWithAggregatesFilter<"Business"> | boolean | null
     isWindingUp?: BoolNullableWithAggregatesFilter<"Business"> | boolean | null
     brregUpdatedAt?: DateTimeNullableWithAggregatesFilter<"Business"> | Date | string | null
+    brregOrgNumber?: StringNullableWithAggregatesFilter<"Business"> | string | null
     workspaceId?: StringWithAggregatesFilter<"Business"> | string
   }
 
@@ -17933,6 +19726,279 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type BrregBusinessCreateInput = {
+    id?: string
+    orgNumber: string
+    name: string
+    orgFormCode?: string | null
+    orgFormDesc?: string | null
+    naceCode1?: string | null
+    naceDesc1?: string | null
+    naceCode2?: string | null
+    naceDesc2?: string | null
+    naceCode3?: string | null
+    naceDesc3?: string | null
+    industrySection?: string | null
+    industrySectionName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    website?: string | null
+    businessAddress?: string | null
+    businessCity?: string | null
+    businessPostalCode?: string | null
+    businessMunicipality?: string | null
+    businessMunicipalityCode?: string | null
+    postalAddress?: string | null
+    postalCity?: string | null
+    postalPostalCode?: string | null
+    postalMunicipality?: string | null
+    postalMunicipalityCode?: string | null
+    hasRegisteredEmployees?: boolean | null
+    numberOfEmployees?: number | null
+    establishedDate?: Date | string | null
+    registeredDate?: Date | string | null
+    vatRegistered?: boolean | null
+    isBankrupt?: boolean | null
+    isWindingUp?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BrregBusinessUncheckedCreateInput = {
+    id?: string
+    orgNumber: string
+    name: string
+    orgFormCode?: string | null
+    orgFormDesc?: string | null
+    naceCode1?: string | null
+    naceDesc1?: string | null
+    naceCode2?: string | null
+    naceDesc2?: string | null
+    naceCode3?: string | null
+    naceDesc3?: string | null
+    industrySection?: string | null
+    industrySectionName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    website?: string | null
+    businessAddress?: string | null
+    businessCity?: string | null
+    businessPostalCode?: string | null
+    businessMunicipality?: string | null
+    businessMunicipalityCode?: string | null
+    postalAddress?: string | null
+    postalCity?: string | null
+    postalPostalCode?: string | null
+    postalMunicipality?: string | null
+    postalMunicipalityCode?: string | null
+    hasRegisteredEmployees?: boolean | null
+    numberOfEmployees?: number | null
+    establishedDate?: Date | string | null
+    registeredDate?: Date | string | null
+    vatRegistered?: boolean | null
+    isBankrupt?: boolean | null
+    isWindingUp?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BrregBusinessUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgNumber?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orgFormCode?: NullableStringFieldUpdateOperationsInput | string | null
+    orgFormDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode3?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc3?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySection?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySectionName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCity?: NullableStringFieldUpdateOperationsInput | string | null
+    businessPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCity?: NullableStringFieldUpdateOperationsInput | string | null
+    postalPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    hasRegisteredEmployees?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    numberOfEmployees?: NullableIntFieldUpdateOperationsInput | number | null
+    establishedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registeredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vatRegistered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrregBusinessUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgNumber?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orgFormCode?: NullableStringFieldUpdateOperationsInput | string | null
+    orgFormDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode3?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc3?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySection?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySectionName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCity?: NullableStringFieldUpdateOperationsInput | string | null
+    businessPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCity?: NullableStringFieldUpdateOperationsInput | string | null
+    postalPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    hasRegisteredEmployees?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    numberOfEmployees?: NullableIntFieldUpdateOperationsInput | number | null
+    establishedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registeredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vatRegistered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrregBusinessCreateManyInput = {
+    id?: string
+    orgNumber: string
+    name: string
+    orgFormCode?: string | null
+    orgFormDesc?: string | null
+    naceCode1?: string | null
+    naceDesc1?: string | null
+    naceCode2?: string | null
+    naceDesc2?: string | null
+    naceCode3?: string | null
+    naceDesc3?: string | null
+    industrySection?: string | null
+    industrySectionName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    website?: string | null
+    businessAddress?: string | null
+    businessCity?: string | null
+    businessPostalCode?: string | null
+    businessMunicipality?: string | null
+    businessMunicipalityCode?: string | null
+    postalAddress?: string | null
+    postalCity?: string | null
+    postalPostalCode?: string | null
+    postalMunicipality?: string | null
+    postalMunicipalityCode?: string | null
+    hasRegisteredEmployees?: boolean | null
+    numberOfEmployees?: number | null
+    establishedDate?: Date | string | null
+    registeredDate?: Date | string | null
+    vatRegistered?: boolean | null
+    isBankrupt?: boolean | null
+    isWindingUp?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BrregBusinessUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgNumber?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orgFormCode?: NullableStringFieldUpdateOperationsInput | string | null
+    orgFormDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode3?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc3?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySection?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySectionName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCity?: NullableStringFieldUpdateOperationsInput | string | null
+    businessPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCity?: NullableStringFieldUpdateOperationsInput | string | null
+    postalPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    hasRegisteredEmployees?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    numberOfEmployees?: NullableIntFieldUpdateOperationsInput | number | null
+    establishedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registeredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vatRegistered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrregBusinessUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgNumber?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orgFormCode?: NullableStringFieldUpdateOperationsInput | string | null
+    orgFormDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc1?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc2?: NullableStringFieldUpdateOperationsInput | string | null
+    naceCode3?: NullableStringFieldUpdateOperationsInput | string | null
+    naceDesc3?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySection?: NullableStringFieldUpdateOperationsInput | string | null
+    industrySectionName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCity?: NullableStringFieldUpdateOperationsInput | string | null
+    businessPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    businessMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCity?: NullableStringFieldUpdateOperationsInput | string | null
+    postalPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipality?: NullableStringFieldUpdateOperationsInput | string | null
+    postalMunicipalityCode?: NullableStringFieldUpdateOperationsInput | string | null
+    hasRegisteredEmployees?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    numberOfEmployees?: NullableIntFieldUpdateOperationsInput | number | null
+    establishedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    registeredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vatRegistered?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BusinessCreateInput = {
     id?: string
     name: string
@@ -17962,6 +20028,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactCreateNestedManyWithoutBusinessInput
     activities?: ActivityCreateNestedManyWithoutBusinessInput
     offers?: OfferCreateNestedManyWithoutBusinessInput
@@ -18000,6 +20067,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
     contacts?: ContactUncheckedCreateNestedManyWithoutBusinessInput
     activities?: ActivityUncheckedCreateNestedManyWithoutBusinessInput
@@ -18038,6 +20106,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUpdateManyWithoutBusinessNestedInput
     offers?: OfferUpdateManyWithoutBusinessNestedInput
@@ -18076,6 +20145,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     contacts?: ContactUncheckedUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutBusinessNestedInput
@@ -18114,6 +20184,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
   }
 
@@ -18146,6 +20217,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BusinessUncheckedUpdateManyInput = {
@@ -18177,6 +20249,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -19303,6 +21376,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -19314,15 +21392,15 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -19334,6 +21412,235 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type BrregBusinessCountOrderByAggregateInput = {
+    id?: SortOrder
+    orgNumber?: SortOrder
+    name?: SortOrder
+    orgFormCode?: SortOrder
+    orgFormDesc?: SortOrder
+    naceCode1?: SortOrder
+    naceDesc1?: SortOrder
+    naceCode2?: SortOrder
+    naceDesc2?: SortOrder
+    naceCode3?: SortOrder
+    naceDesc3?: SortOrder
+    industrySection?: SortOrder
+    industrySectionName?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    mobile?: SortOrder
+    website?: SortOrder
+    businessAddress?: SortOrder
+    businessCity?: SortOrder
+    businessPostalCode?: SortOrder
+    businessMunicipality?: SortOrder
+    businessMunicipalityCode?: SortOrder
+    postalAddress?: SortOrder
+    postalCity?: SortOrder
+    postalPostalCode?: SortOrder
+    postalMunicipality?: SortOrder
+    postalMunicipalityCode?: SortOrder
+    hasRegisteredEmployees?: SortOrder
+    numberOfEmployees?: SortOrder
+    establishedDate?: SortOrder
+    registeredDate?: SortOrder
+    vatRegistered?: SortOrder
+    isBankrupt?: SortOrder
+    isWindingUp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BrregBusinessAvgOrderByAggregateInput = {
+    numberOfEmployees?: SortOrder
+  }
+
+  export type BrregBusinessMaxOrderByAggregateInput = {
+    id?: SortOrder
+    orgNumber?: SortOrder
+    name?: SortOrder
+    orgFormCode?: SortOrder
+    orgFormDesc?: SortOrder
+    naceCode1?: SortOrder
+    naceDesc1?: SortOrder
+    naceCode2?: SortOrder
+    naceDesc2?: SortOrder
+    naceCode3?: SortOrder
+    naceDesc3?: SortOrder
+    industrySection?: SortOrder
+    industrySectionName?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    mobile?: SortOrder
+    website?: SortOrder
+    businessAddress?: SortOrder
+    businessCity?: SortOrder
+    businessPostalCode?: SortOrder
+    businessMunicipality?: SortOrder
+    businessMunicipalityCode?: SortOrder
+    postalAddress?: SortOrder
+    postalCity?: SortOrder
+    postalPostalCode?: SortOrder
+    postalMunicipality?: SortOrder
+    postalMunicipalityCode?: SortOrder
+    hasRegisteredEmployees?: SortOrder
+    numberOfEmployees?: SortOrder
+    establishedDate?: SortOrder
+    registeredDate?: SortOrder
+    vatRegistered?: SortOrder
+    isBankrupt?: SortOrder
+    isWindingUp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BrregBusinessMinOrderByAggregateInput = {
+    id?: SortOrder
+    orgNumber?: SortOrder
+    name?: SortOrder
+    orgFormCode?: SortOrder
+    orgFormDesc?: SortOrder
+    naceCode1?: SortOrder
+    naceDesc1?: SortOrder
+    naceCode2?: SortOrder
+    naceDesc2?: SortOrder
+    naceCode3?: SortOrder
+    naceDesc3?: SortOrder
+    industrySection?: SortOrder
+    industrySectionName?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    mobile?: SortOrder
+    website?: SortOrder
+    businessAddress?: SortOrder
+    businessCity?: SortOrder
+    businessPostalCode?: SortOrder
+    businessMunicipality?: SortOrder
+    businessMunicipalityCode?: SortOrder
+    postalAddress?: SortOrder
+    postalCity?: SortOrder
+    postalPostalCode?: SortOrder
+    postalMunicipality?: SortOrder
+    postalMunicipalityCode?: SortOrder
+    hasRegisteredEmployees?: SortOrder
+    numberOfEmployees?: SortOrder
+    establishedDate?: SortOrder
+    registeredDate?: SortOrder
+    vatRegistered?: SortOrder
+    isBankrupt?: SortOrder
+    isWindingUp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BrregBusinessSumOrderByAggregateInput = {
+    numberOfEmployees?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -19359,22 +21666,6 @@ export namespace Prisma {
     in?: $Enums.CustomerStage[] | ListEnumCustomerStageFieldRefInput<$PrismaModel>
     notIn?: $Enums.CustomerStage[] | ListEnumCustomerStageFieldRefInput<$PrismaModel>
     not?: NestedEnumCustomerStageFilter<$PrismaModel> | $Enums.CustomerStage
-  }
-
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type ContactListRelationFilter = {
@@ -19416,11 +21707,6 @@ export namespace Prisma {
   export type WorkspaceScalarRelationFilter = {
     is?: WorkspaceWhereInput
     isNot?: WorkspaceWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type ContactOrderByRelationAggregateInput = {
@@ -19476,6 +21762,7 @@ export namespace Prisma {
     isBankrupt?: SortOrder
     isWindingUp?: SortOrder
     brregUpdatedAt?: SortOrder
+    brregOrgNumber?: SortOrder
     workspaceId?: SortOrder
   }
 
@@ -19515,6 +21802,7 @@ export namespace Prisma {
     isBankrupt?: SortOrder
     isWindingUp?: SortOrder
     brregUpdatedAt?: SortOrder
+    brregOrgNumber?: SortOrder
     workspaceId?: SortOrder
   }
 
@@ -19547,6 +21835,7 @@ export namespace Prisma {
     isBankrupt?: SortOrder
     isWindingUp?: SortOrder
     brregUpdatedAt?: SortOrder
+    brregOrgNumber?: SortOrder
     workspaceId?: SortOrder
   }
 
@@ -19555,58 +21844,6 @@ export namespace Prisma {
     revenue?: SortOrder
     bilagCount?: SortOrder
     potensiellVerdi?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -19623,20 +21860,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -19673,28 +21896,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCustomerStageFilter<$PrismaModel>
     _max?: NestedEnumCustomerStageFilter<$PrismaModel>
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type BusinessListRelationFilter = {
@@ -20435,6 +22636,34 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type ContactCreateNestedManyWithoutBusinessInput = {
     create?: XOR<ContactCreateWithoutBusinessInput, ContactUncheckedCreateWithoutBusinessInput> | ContactCreateWithoutBusinessInput[] | ContactUncheckedCreateWithoutBusinessInput[]
     connectOrCreate?: ContactCreateOrConnectWithoutBusinessInput | ContactCreateOrConnectWithoutBusinessInput[]
@@ -20523,32 +22752,12 @@ export namespace Prisma {
     connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -20565,14 +22774,6 @@ export namespace Prisma {
 
   export type EnumCustomerStageFieldUpdateOperationsInput = {
     set?: $Enums.CustomerStage
-  }
-
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type ContactUpdateManyWithoutBusinessNestedInput = {
@@ -21980,6 +24181,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -21991,15 +24197,15 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -22011,47 +24217,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumBusinessStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessStatus | EnumBusinessStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.BusinessStatus[] | ListEnumBusinessStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BusinessStatus[] | ListEnumBusinessStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumBusinessStatusFilter<$PrismaModel> | $Enums.BusinessStatus
-  }
-
-  export type NestedEnumCustomerStageFilter<$PrismaModel = never> = {
-    equals?: $Enums.CustomerStage | EnumCustomerStageFieldRefInput<$PrismaModel>
-    in?: $Enums.CustomerStage[] | ListEnumCustomerStageFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CustomerStage[] | ListEnumCustomerStageFieldRefInput<$PrismaModel>
-    not?: NestedEnumCustomerStageFilter<$PrismaModel> | $Enums.CustomerStage
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -22071,6 +24236,17 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -22086,6 +24262,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22104,7 +24288,7 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -22112,12 +24296,21 @@ export namespace Prisma {
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -22132,6 +24325,36 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBusinessStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessStatus | EnumBusinessStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BusinessStatus[] | ListEnumBusinessStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BusinessStatus[] | ListEnumBusinessStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBusinessStatusFilter<$PrismaModel> | $Enums.BusinessStatus
+  }
+
+  export type NestedEnumCustomerStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerStage | EnumCustomerStageFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerStage[] | ListEnumCustomerStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerStage[] | ListEnumCustomerStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerStageFilter<$PrismaModel> | $Enums.CustomerStage
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -22179,28 +24402,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCustomerStageFilter<$PrismaModel>
     _max?: NestedEnumCustomerStageFilter<$PrismaModel>
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -22888,6 +25089,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactCreateNestedManyWithoutBusinessInput
     activities?: ActivityCreateNestedManyWithoutBusinessInput
     offers?: OfferCreateNestedManyWithoutBusinessInput
@@ -22925,6 +25127,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
     contacts?: ContactUncheckedCreateNestedManyWithoutBusinessInput
     activities?: ActivityUncheckedCreateNestedManyWithoutBusinessInput
@@ -23023,6 +25226,7 @@ export namespace Prisma {
     isBankrupt?: BoolNullableFilter<"Business"> | boolean | null
     isWindingUp?: BoolNullableFilter<"Business"> | boolean | null
     brregUpdatedAt?: DateTimeNullableFilter<"Business"> | Date | string | null
+    brregOrgNumber?: StringNullableFilter<"Business"> | string | null
     workspaceId?: StringFilter<"Business"> | string
   }
 
@@ -23098,6 +25302,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     activities?: ActivityCreateNestedManyWithoutBusinessInput
     offers?: OfferCreateNestedManyWithoutBusinessInput
     tags?: TagCreateNestedManyWithoutBusinessesInput
@@ -23135,6 +25340,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
     activities?: ActivityUncheckedCreateNestedManyWithoutBusinessInput
     offers?: OfferUncheckedCreateNestedManyWithoutBusinessInput
@@ -23361,6 +25567,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     activities?: ActivityUpdateManyWithoutBusinessNestedInput
     offers?: OfferUpdateManyWithoutBusinessNestedInput
     tags?: TagUpdateManyWithoutBusinessesNestedInput
@@ -23398,6 +25605,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     activities?: ActivityUncheckedUpdateManyWithoutBusinessNestedInput
     offers?: OfferUncheckedUpdateManyWithoutBusinessNestedInput
@@ -23526,6 +25734,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactCreateNestedManyWithoutBusinessInput
     offers?: OfferCreateNestedManyWithoutBusinessInput
     tags?: TagCreateNestedManyWithoutBusinessesInput
@@ -23563,6 +25772,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
     contacts?: ContactUncheckedCreateNestedManyWithoutBusinessInput
     offers?: OfferUncheckedCreateNestedManyWithoutBusinessInput
@@ -23784,6 +25994,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutBusinessNestedInput
     offers?: OfferUpdateManyWithoutBusinessNestedInput
     tags?: TagUpdateManyWithoutBusinessesNestedInput
@@ -23821,6 +26032,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     contacts?: ContactUncheckedUpdateManyWithoutBusinessNestedInput
     offers?: OfferUncheckedUpdateManyWithoutBusinessNestedInput
@@ -24050,6 +26262,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactCreateNestedManyWithoutBusinessInput
     activities?: ActivityCreateNestedManyWithoutBusinessInput
     tags?: TagCreateNestedManyWithoutBusinessesInput
@@ -24087,6 +26300,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
     contacts?: ContactUncheckedCreateNestedManyWithoutBusinessInput
     activities?: ActivityUncheckedCreateNestedManyWithoutBusinessInput
@@ -24244,6 +26458,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUpdateManyWithoutBusinessNestedInput
     tags?: TagUpdateManyWithoutBusinessesNestedInput
@@ -24281,6 +26496,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     contacts?: ContactUncheckedUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutBusinessNestedInput
@@ -24514,6 +26730,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactCreateNestedManyWithoutBusinessInput
     activities?: ActivityCreateNestedManyWithoutBusinessInput
     offers?: OfferCreateNestedManyWithoutBusinessInput
@@ -24551,6 +26768,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
     contacts?: ContactUncheckedCreateNestedManyWithoutBusinessInput
     activities?: ActivityUncheckedCreateNestedManyWithoutBusinessInput
@@ -24678,6 +26896,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUpdateManyWithoutBusinessNestedInput
     offers?: OfferUpdateManyWithoutBusinessNestedInput
@@ -24715,6 +26934,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     contacts?: ContactUncheckedUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutBusinessNestedInput
@@ -25011,6 +27231,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactCreateNestedManyWithoutBusinessInput
     activities?: ActivityCreateNestedManyWithoutBusinessInput
     offers?: OfferCreateNestedManyWithoutBusinessInput
@@ -25048,6 +27269,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     workspaceId: string
     contacts?: ContactUncheckedCreateNestedManyWithoutBusinessInput
     activities?: ActivityUncheckedCreateNestedManyWithoutBusinessInput
@@ -25249,6 +27471,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUpdateManyWithoutBusinessNestedInput
     offers?: OfferUpdateManyWithoutBusinessNestedInput
@@ -25286,6 +27509,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     contacts?: ContactUncheckedUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutBusinessNestedInput
@@ -25470,6 +27694,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactCreateNestedManyWithoutBusinessInput
     activities?: ActivityCreateNestedManyWithoutBusinessInput
     offers?: OfferCreateNestedManyWithoutBusinessInput
@@ -25507,6 +27732,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
     contacts?: ContactUncheckedCreateNestedManyWithoutBusinessInput
     activities?: ActivityUncheckedCreateNestedManyWithoutBusinessInput
     offers?: OfferUncheckedCreateNestedManyWithoutBusinessInput
@@ -26659,6 +28885,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUpdateManyWithoutBusinessNestedInput
     offers?: OfferUpdateManyWithoutBusinessNestedInput
@@ -26696,6 +28923,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     contacts?: ContactUncheckedUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutBusinessNestedInput
@@ -26733,6 +28961,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -27116,6 +29345,7 @@ export namespace Prisma {
     isBankrupt?: boolean | null
     isWindingUp?: boolean | null
     brregUpdatedAt?: Date | string | null
+    brregOrgNumber?: string | null
   }
 
   export type TagCreateManyWorkspaceInput = {
@@ -27298,6 +29528,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUpdateManyWithoutBusinessNestedInput
     offers?: OfferUpdateManyWithoutBusinessNestedInput
@@ -27335,6 +29566,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUncheckedUpdateManyWithoutBusinessNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutBusinessNestedInput
     offers?: OfferUncheckedUpdateManyWithoutBusinessNestedInput
@@ -27372,6 +29604,7 @@ export namespace Prisma {
     isBankrupt?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isWindingUp?: NullableBoolFieldUpdateOperationsInput | boolean | null
     brregUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brregOrgNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TagUpdateWithoutWorkspaceInput = {

@@ -120,6 +120,45 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.BrregBusinessScalarFieldEnum = {
+  id: 'id',
+  orgNumber: 'orgNumber',
+  name: 'name',
+  orgFormCode: 'orgFormCode',
+  orgFormDesc: 'orgFormDesc',
+  naceCode1: 'naceCode1',
+  naceDesc1: 'naceDesc1',
+  naceCode2: 'naceCode2',
+  naceDesc2: 'naceDesc2',
+  naceCode3: 'naceCode3',
+  naceDesc3: 'naceDesc3',
+  industrySection: 'industrySection',
+  industrySectionName: 'industrySectionName',
+  email: 'email',
+  phone: 'phone',
+  mobile: 'mobile',
+  website: 'website',
+  businessAddress: 'businessAddress',
+  businessCity: 'businessCity',
+  businessPostalCode: 'businessPostalCode',
+  businessMunicipality: 'businessMunicipality',
+  businessMunicipalityCode: 'businessMunicipalityCode',
+  postalAddress: 'postalAddress',
+  postalCity: 'postalCity',
+  postalPostalCode: 'postalPostalCode',
+  postalMunicipality: 'postalMunicipality',
+  postalMunicipalityCode: 'postalMunicipalityCode',
+  hasRegisteredEmployees: 'hasRegisteredEmployees',
+  numberOfEmployees: 'numberOfEmployees',
+  establishedDate: 'establishedDate',
+  registeredDate: 'registeredDate',
+  vatRegistered: 'vatRegistered',
+  isBankrupt: 'isBankrupt',
+  isWindingUp: 'isWindingUp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.BusinessScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -149,6 +188,7 @@ exports.Prisma.BusinessScalarFieldEnum = {
   isBankrupt: 'isBankrupt',
   isWindingUp: 'isWindingUp',
   brregUpdatedAt: 'brregUpdatedAt',
+  brregOrgNumber: 'brregOrgNumber',
   workspaceId: 'workspaceId'
 };
 
@@ -374,6 +414,7 @@ exports.TaskPriority = exports.$Enums.TaskPriority = {
 };
 
 exports.Prisma.ModelName = {
+  BrregBusiness: 'BrregBusiness',
   Business: 'Business',
   Tag: 'Tag',
   Contact: 'Contact',
