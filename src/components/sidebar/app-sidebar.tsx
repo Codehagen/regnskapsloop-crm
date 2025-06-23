@@ -57,6 +57,11 @@ const data = {
       url: "/customers",
       icon: IconBuilding,
     },
+    {
+      title: "BRREG Registry",
+      url: "/brreg-registry",
+      icon: IconDatabase,
+    },
     // {
     //   title: "Jobbsøknader",
     //   url: "/applications",
