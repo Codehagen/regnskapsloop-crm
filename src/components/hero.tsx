@@ -12,11 +12,11 @@ export default function HeroSection() {
         <div className="relative text-center">
           <MistKitLogo className="mx-auto" />
           <h1 className="mx-auto mt-16 max-w-xl text-balance text-5xl font-medium">
-            Regnskapsloop
+            Real CRM
           </h1>
 
           <p className="text-muted-foreground mx-auto mb-6 mt-4 text-balance text-xl">
-            Regnskapsloop er et enkelt CRM-system som lar deg opprette og
+            Real CRM er et enkelt CRM-system som lar deg opprette og
             administrere kundene dine.
           </p>
 

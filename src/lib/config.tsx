@@ -3,11 +3,11 @@ import { Icons } from "@/components/icons";
 export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
-  name: "Regnskapsloop",
-  description: "Regnskapsloop - Din partner innen CRM",
+  name: "Real CRM",
+  description: "Real CRM - Din partner innen CRM",
   cta: "Get Started",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-  keywords: ["Regnskapsloop", "CRM", "Bedrifts CRM", "Bokføring"],
+  keywords: ["Real CRM", "CRM", "Bedrifts CRM", "Bokføring"],
   links: {
     email: "support@realcrm.no",
     twitter: "https://twitter.com/realcrm",
@@ -31,7 +31,7 @@ export const siteConfig = {
       { text: "Contact", url: "#" },
     ],
     bottomText: "All rights reserved.",
-    brandText: "Regnskapsloop",
+    brandText: "Real CRM",
   },
 };
 

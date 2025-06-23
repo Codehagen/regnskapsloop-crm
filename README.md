@@ -1,7 +1,7 @@
-<h1 align="center">Regnskapsloop: Customer Relationship Management for Accountants</h1>
+<h1 align="center">Real CRM: Customer Relationship Management for Accountants</h1>
 
 <p align="center">
-  <img width="1200" alt="Regnskapsloop CRM Dashboard" src="https://github.com/Codehagen/regnskapsloop-crm/blob/main/public/logo-login.png">
+  <img width="1200" alt="Real CRM Dashboard" src="https://github.com/Codehagen/real-crm/blob/main/public/logo-login.png">
 </p>
 
 <p align="center">
@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/codehagen/regnskapsloop-crm/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/codehagen/regnskapsloop-crm?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
+  <a href="https://github.com/codehagen/real-crm/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/codehagen/real-crm?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
   </a>
 </p>
 
@@ -25,7 +25,7 @@
 
 ## Introduction
 
-Regnskapsloop is a specialized customer relationship management system designed for accounting professionals. Built with modern web technologies, it helps accountants manage their client relationships, track leads, handle communications, and streamline their business development processes.
+Real CRM is a specialized customer relationship management system designed for accounting professionals. Built with modern web technologies, it helps accountants manage their client relationships, track leads, handle communications, and streamline their business development processes.
 
 Our CRM provides essential tools for accounting firms:
 - **Client Management** - Comprehensive client profiles with contact information and business details
@@ -59,12 +59,12 @@ Our CRM provides essential tools for accounting firms:
 
 ## Installation
 
-Get started with Regnskapsloop CRM:
+Get started with Real CRM:
 
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd regnskapsloop-crm
+cd real-crm
 
 # Install dependencies
 pnpm install
@@ -109,7 +109,7 @@ Visit `http://localhost:3000` to access your CRM.
 
 ## Directory Structure
 
-Regnskapsloop CRM follows a clean and organized structure:
+Real CRM follows a clean and organized structure:
 
 ```
 .
@@ -166,10 +166,10 @@ The CRM uses a comprehensive database schema designed for accounting firms:
 
 ## Contributing
 
-We welcome contributions to Regnskapsloop CRM! Here's how you can help:
+We welcome contributions to Real CRM! Here's how you can help:
 
-- [Open an issue](https://github.com/codehagen/regnskapsloop-crm/issues) to report bugs or request features
-- [Submit a pull request](https://github.com/codehagen/regnskapsloop-crm/pulls) to contribute code improvements
+- [Open an issue](https://github.com/codehagen/real-crm/issues) to report bugs or request features
+- [Submit a pull request](https://github.com/codehagen/real-crm/pulls) to contribute code improvements
 - Help improve documentation and user guides
 
 ### Development Workflow
@@ -187,4 +187,4 @@ This project is licensed under the GNU Affero General Public License v3.0 - see 
 
 ---
 
-**Regnskapsloop CRM** - Empowering accountants with modern client relationship management.
+**Real CRM** - Empowering accountants with modern client relationship management.

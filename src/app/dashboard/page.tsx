@@ -49,7 +49,7 @@ export default async function Homepage() {
   return (
     <PageLayout
       breadcrumbs={[
-        { label: "Regnskapsloop", href: "/dashboard" },
+        { label: "Real CRM", href: "/dashboard" },
         { label: "Dashboard", isCurrentPage: true },
       ]}
     >
