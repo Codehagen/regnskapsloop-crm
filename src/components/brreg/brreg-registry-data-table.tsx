@@ -96,7 +96,14 @@ export function BrregRegistryDataTable({
               <TableRow key={business.id || business.orgNumber}>
                 <TableCell>
                   <div className="flex flex-col space-y-1">
-                    <div className="font-medium">{business.name}</div>
+                    <a
+                      href={`https://www.proff.no/bransjesøk?q=${business.orgNumber}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-foreground hover:text-primary hover:underline underline-offset-4 transition-colors cursor-pointer"
+                    >
+                      {business.name}
+                    </a>
                     <div className="text-sm text-muted-foreground flex items-center gap-1">
                       <Building2 className="h-3 w-3" />
                       {business.orgNumber}
