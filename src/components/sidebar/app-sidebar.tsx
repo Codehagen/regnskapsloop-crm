@@ -57,10 +57,15 @@ const data = {
       url: "/customers",
       icon: IconBuilding,
     },
+    // {
+    //   title: "BRREG Registry",
+    //   url: "/brreg-registry",
+    //   icon: IconDatabase,
+    // },
     {
-      title: "BRREG Registry",
-      url: "/brreg-registry",
-      icon: IconDatabase,
+      title: "Find nye leads",
+      url: "/brreg-api",
+      icon: IconSearch,
     },
     // {
     //   title: "Jobbsøknader",

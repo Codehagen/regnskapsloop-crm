@@ -685,6 +685,8 @@ export async function createLeadFromOrgNumber(
       | "activities"
       | "offers"
       | "tags"
+      | "emails"
+      | "tasks"
       | "workspace"
     > = {
       orgNumber: orgNumber,
@@ -714,6 +716,7 @@ export async function createLeadFromOrgNumber(
       isBankrupt: null,
       isWindingUp: null,
       brregUpdatedAt: null, // Will be set by mergeBrregData
+      brregOrgNumber: null, // Link to BRREG source
     };
 
     // Merge Brreg data into the base object, potentially overwriting defaults
