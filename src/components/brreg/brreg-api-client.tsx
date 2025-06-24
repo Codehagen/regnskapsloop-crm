@@ -140,7 +140,7 @@ export default function BrregApiClient({
       </div>
 
       {/* API Status */}
-      <Card className="border-green-200 bg-green-50/30">
+      {/* <Card className="border-green-200 bg-green-50/30">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -174,7 +174,7 @@ export default function BrregApiClient({
             </div>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Filters */}
       <Card>

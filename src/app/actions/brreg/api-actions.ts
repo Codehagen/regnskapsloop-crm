@@ -303,6 +303,9 @@ export async function getBrregApiFilterOptions() {
       "TROMSØ",
       "HAMAR",
       "LARVIK",
+      "MO I RANA",
+      "NARVIK",
+      "HARSTAD",
     ];
 
     // Common Norwegian cities
@@ -326,6 +329,9 @@ export async function getBrregApiFilterOptions() {
       "HAMAR",
       "LARVIK",
       "LILLEHAMMER",
+      "MO I RANA",
+      "NARVIK",
+      "HARSTAD",
     ];
 
     // Common NACE industry sections
