@@ -6,6 +6,7 @@ import { parse } from "csv-parse/sync";
 import { BusinessStatus, CustomerStage } from "@/app/generated/prisma";
 import path from "path";
 import { categorizeNaceCode } from "@/lib/nace-mapping";
+import { getAllCities } from "@/lib/postal-lookup";
 
 export async function getBrregBusinesses(
   limit: number = 10
@@ -44,6 +45,7 @@ export async function searchBrregRegistry({
 export async function searchBrregRegistryWithPagination({
   query,
   municipality,
+  city,
   orgForm,
   industrySection,
   naceCode,
@@ -54,6 +56,7 @@ export async function searchBrregRegistryWithPagination({
 }: {
   query?: string;
   municipality?: string;
+  city?: string;
   orgForm?: string;
   industrySection?: string;
   naceCode?: string;
@@ -72,6 +75,7 @@ export async function searchBrregRegistryWithPagination({
   const where = {
     ...(query && { name: { contains: query, mode: "insensitive" as const } }),
     ...(municipality && { businessMunicipality: municipality }),
+    ...(city && { businessCity: city }),
     ...(orgForm && { orgFormCode: orgForm }),
     ...(industrySection && { industrySection }),
     ...(naceCode && { naceCode1: { startsWith: naceCode } }),
@@ -99,6 +103,7 @@ export async function searchBrregRegistryWithPagination({
 
 export async function getBrregFilterOptions(): Promise<{
   municipalities: string[];
+  cities: string[];
   orgForms: { code: string; description: string }[];
   industrySections: { section: string; name: string }[];
   naceCodes: { code: string; description: string }[];
@@ -149,10 +154,14 @@ export async function getBrregFilterOptions(): Promise<{
       }),
     ]);
 
+  // Get all cities from postal register instead of just database cities
+  const allCities = getAllCities();
+
   return {
     municipalities: municipalities
       .map((m) => m.businessMunicipality)
       .filter(Boolean) as string[],
+    cities: allCities, // Use all cities from postal register
     orgForms: orgForms
       .filter((o) => o.orgFormCode && o.orgFormDesc)
       .map((o) => ({
@@ -413,7 +422,7 @@ export async function convertBrregToLead(
     });
 
     if (!brregBusiness) {
-      return { success: false, message: "BRREG business not found" };
+      return { success: false, message: "BRREG bedrift ikke funnet" };
     }
 
     // Check if already converted
@@ -424,7 +433,7 @@ export async function convertBrregToLead(
     if (existing) {
       return {
         success: false,
-        message: "This company is already in your leads/customers",
+        message: "Denne bedriften er allerede i dine leads/kunder",
       };
     }
 
@@ -458,15 +467,100 @@ export async function convertBrregToLead(
 
     return {
       success: true,
-      message: `Successfully added ${brregBusiness.name} as a lead`,
+      message: `${brregBusiness.name} ble lagt til som lead`,
       businessId: business.id,
     };
   } catch (error) {
     console.error("Conversion failed:", error);
     return {
       success: false,
-      message: `Conversion failed: ${
-        error instanceof Error ? error.message : "Unknown error"
+      message: `Konvertering feilet: ${
+        error instanceof Error ? error.message : "Ukjent feil"
+      }`,
+    };
+  }
+}
+
+// New function to convert live API data directly to leads
+export async function convertBrregApiToLead(
+  orgNumber: string,
+  workspaceId: string
+): Promise<{ success: boolean; message: string; businessId?: string }> {
+  try {
+    // Check if already converted
+    const existing = await prisma.business.findFirst({
+      where: { orgNumber: orgNumber, workspaceId },
+    });
+
+    if (existing) {
+      return {
+        success: false,
+        message: "Denne bedriften er allerede i dine leads/kunder",
+      };
+    }
+
+    // Fetch fresh data from BRREG API
+    const { getBrregApiEnhet } = await import("./api-actions");
+    const brregData = await getBrregApiEnhet(orgNumber);
+
+    if (!brregData) {
+      return {
+        success: false,
+        message: "Klarte ikke å hente bedriftsdata fra BRREG",
+      };
+    }
+
+    // Helper function to convert array or string to string
+    const arrayToString = (value: any): string => {
+      if (Array.isArray(value)) {
+        return value.join(", ");
+      }
+      return value || "";
+    };
+
+    // Create new Business (lead) from API data
+    const business = await prisma.business.create({
+      data: {
+        name: brregData.name,
+        orgNumber: brregData.orgNumber,
+        orgForm: brregData.orgFormDesc || brregData.orgFormCode || "",
+        industryCode: brregData.naceCode1 || "",
+        industry: brregData.naceDesc1 || "",
+        email: brregData.email || "placeholder@example.com",
+        phone: brregData.phone || brregData.mobile || "",
+        website: brregData.website || "",
+        address: arrayToString(brregData.businessAddress),
+        city: arrayToString(brregData.businessCity),
+        postalCode: arrayToString(brregData.businessPostalCode),
+        country: "Norge",
+        numberOfEmployees: brregData.numberOfEmployees,
+        vatRegistered: brregData.vatRegistered,
+        establishedDate: brregData.establishedDate,
+        isBankrupt: brregData.isBankrupt,
+        isWindingUp: brregData.isWindingUp,
+        brregUpdatedAt: new Date(),
+        brregOrgNumber: brregData.orgNumber,
+        status: BusinessStatus.active,
+        stage: CustomerStage.lead,
+        workspaceId,
+      },
+    });
+
+    // Revalidate leads page to show the new lead
+    const { revalidatePath } = await import("next/cache");
+    revalidatePath("/leads");
+
+    return {
+      success: true,
+      message: `${brregData.name} ble lagt til som lead`,
+      businessId: business.id,
+    };
+  } catch (error) {
+    console.error("Conversion from API failed:", error);
+    return {
+      success: false,
+      message: `Konvertering feilet: ${
+        error instanceof Error ? error.message : "Ukjent feil"
       }`,
     };
   }

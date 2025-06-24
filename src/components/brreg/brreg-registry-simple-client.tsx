@@ -34,6 +34,7 @@ import { toast } from "sonner";
 
 interface FilterOptions {
   municipalities: string[];
+  cities: string[];
   orgForms: { code: string; description: string }[];
   industrySections: { section: string; name: string }[];
   naceCodes: { code: string; description: string }[];
@@ -97,6 +98,7 @@ export default function BrregRegistrySimpleClient({
 
   const currentQuery = searchParams.get("q") || "";
   const currentMunicipality = searchParams.get("municipality") || "all";
+  const currentCity = searchParams.get("city") || "all";
   const currentOrgForm = searchParams.get("orgForm") || "all";
   const currentIndustrySection = searchParams.get("industrySection") || "all";
   const currentNaceCode = searchParams.get("naceCode") || "all";
@@ -106,6 +108,7 @@ export default function BrregRegistrySimpleClient({
   const activeFiltersCount = [
     currentQuery,
     currentMunicipality !== "all" ? currentMunicipality : "",
+    currentCity !== "all" ? currentCity : "",
     currentOrgForm !== "all" ? currentOrgForm : "",
     currentIndustrySection !== "all" ? currentIndustrySection : "",
     currentNaceCode !== "all" ? currentNaceCode : "",
@@ -173,7 +176,7 @@ export default function BrregRegistrySimpleClient({
           </div>
 
           {/* Filter Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Municipality */}
             <div className="space-y-2">
               <label className="text-sm font-medium">Municipality</label>
@@ -191,6 +194,27 @@ export default function BrregRegistrySimpleClient({
                   {filterOptions.municipalities.map((muni) => (
                     <SelectItem key={muni} value={muni}>
                       {muni}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* City */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">City</label>
+              <Select
+                value={currentCity}
+                onValueChange={(value) => updateSearchParams("city", value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="All cities" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All cities</SelectItem>
+                  {filterOptions.cities.map((city) => (
+                    <SelectItem key={city} value={city}>
+                      {city}
                     </SelectItem>
                   ))}
                 </SelectContent>

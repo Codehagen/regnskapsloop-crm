@@ -8,6 +8,7 @@ import { PageLayout } from "@/components/page-layout";
 interface SearchParams {
   q?: string;
   municipality?: string;
+  city?: string;
   orgForm?: string;
   industrySection?: string;
   naceCode?: string;
@@ -29,6 +30,7 @@ export default async function BrregRegistryPage({
     searchBrregRegistryWithPagination({
       query: searchParams.q,
       municipality: searchParams.municipality,
+      city: searchParams.city,
       orgForm: searchParams.orgForm,
       industrySection: searchParams.industrySection,
       naceCode: searchParams.naceCode,

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,16 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BrregBusiness } from "@/app/generated/prisma";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Building2, Mail, Phone, Globe } from "lucide-react";
-import { convertBrregToLead } from "@/app/actions/brreg/actions";
+import { Building2, Loader2 } from "lucide-react";
+import { convertBrregApiToLead } from "@/app/actions/brreg/actions";
 import { toast } from "sonner";
 
 const industryColors: Record<string, string> = {
@@ -49,17 +42,22 @@ const industryColors: Record<string, string> = {
 
 interface BrregRegistryDataTableProps {
   businesses: BrregBusiness[];
+  workspaceId: string;
 }
 
 export function BrregRegistryDataTable({
   businesses,
+  workspaceId,
 }: BrregRegistryDataTableProps) {
-  const handleAddAsLead = async (business: BrregBusiness) => {
-    try {
-      // For now, use a placeholder workspace ID
-      const workspaceId = "placeholder-workspace-id";
+  const [loadingId, setLoadingId] = useState<string | null>(null);
 
-      const result = await convertBrregToLead(business.id, workspaceId);
+  const handleAddAsLead = async (business: BrregBusiness) => {
+    setLoadingId(business.id);
+    try {
+      const result = await convertBrregApiToLead(
+        business.orgNumber,
+        workspaceId
+      );
 
       if (result.success) {
         toast.success(result.message);
@@ -67,7 +65,9 @@ export function BrregRegistryDataTable({
         toast.error(result.message);
       }
     } catch (error) {
-      toast.error("Failed to add as lead");
+      toast.error("Klarte ikke å legge til lead");
+    } finally {
+      setLoadingId(null);
     }
   };
 
@@ -76,26 +76,24 @@ export function BrregRegistryDataTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Company</TableHead>
-            <TableHead>Organization Form</TableHead>
-            <TableHead>Industry</TableHead>
-            <TableHead>Location</TableHead>
-            <TableHead>Employees</TableHead>
-            <TableHead>Contact</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="w-[70px]"></TableHead>
+            <TableHead>Bedrift</TableHead>
+            <TableHead>Organisasjonsform</TableHead>
+            <TableHead>NACE-kode</TableHead>
+            <TableHead>Stiftelsesdato</TableHead>
+            <TableHead>MVA-registrert</TableHead>
+            <TableHead className="w-[120px]">Handling</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {businesses.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={8} className="h-24 text-center">
-                No companies found.
+              <TableCell colSpan={6} className="h-24 text-center">
+                Ingen bedrifter funnet.
               </TableCell>
             </TableRow>
           ) : (
             businesses.map((business) => (
-              <TableRow key={business.id}>
+              <TableRow key={business.id || business.orgNumber}>
                 <TableCell>
                   <div className="flex flex-col space-y-1">
                     <div className="font-medium">{business.name}</div>
@@ -115,146 +113,62 @@ export function BrregRegistryDataTable({
                 </TableCell>
 
                 <TableCell>
-                  {business.industrySectionName && business.industrySection ? (
-                    <Badge
-                      className={
-                        industryColors[business.industrySection] ||
-                        "bg-gray-100 text-gray-800"
-                      }
-                    >
-                      {business.industrySection}: {business.industrySectionName}
-                    </Badge>
-                  ) : null}
-                </TableCell>
-
-                <TableCell>
-                  {business.businessMunicipality ? (
+                  {business.naceCode1 ? (
                     <div className="text-sm">
-                      <div className="font-medium">
-                        {business.businessMunicipality}
-                      </div>
-                      {business.businessCity &&
-                        business.businessCity !==
-                          business.businessMunicipality && (
-                          <div className="text-muted-foreground">
-                            {business.businessCity}
-                          </div>
-                        )}
+                      <div className="font-medium">{business.naceCode1}</div>
+                      {business.naceDesc1 && (
+                        <div className="text-muted-foreground text-xs max-w-xs truncate">
+                          {business.naceDesc1}
+                        </div>
+                      )}
                     </div>
-                  ) : null}
+                  ) : (
+                    <span className="text-muted-foreground text-sm">-</span>
+                  )}
                 </TableCell>
 
                 <TableCell>
-                  {!business.hasRegisteredEmployees ? (
-                    <span className="text-muted-foreground text-sm">
-                      Not registered
-                    </span>
-                  ) : business.numberOfEmployees ? (
-                    <Badge variant="secondary">
-                      {business.numberOfEmployees}
+                  {business.establishedDate ? (
+                    <div className="text-sm">
+                      {new Date(business.establishedDate).toLocaleDateString(
+                        "no-NO"
+                      )}
+                    </div>
+                  ) : (
+                    <span className="text-muted-foreground text-sm">-</span>
+                  )}
+                </TableCell>
+
+                <TableCell>
+                  {business.vatRegistered !== null ? (
+                    <Badge
+                      variant={business.vatRegistered ? "default" : "secondary"}
+                      className="text-xs"
+                    >
+                      {business.vatRegistered ? "Ja" : "Nei"}
                     </Badge>
                   ) : (
-                    <span className="text-muted-foreground text-sm">
-                      Unknown
-                    </span>
+                    <span className="text-muted-foreground text-sm">-</span>
                   )}
                 </TableCell>
 
                 <TableCell>
-                  {(business.email || business.phone || business.website) && (
-                    <div className="flex items-center gap-2">
-                      {business.email && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0"
-                        >
-                          <Mail className="h-3 w-3" />
-                        </Button>
-                      )}
-                      {business.phone && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0"
-                        >
-                          <Phone className="h-3 w-3" />
-                        </Button>
-                      )}
-                      {business.website && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0"
-                        >
-                          <Globe className="h-3 w-3" />
-                        </Button>
-                      )}
-                    </div>
-                  )}
-                </TableCell>
-
-                <TableCell>
-                  <div className="flex flex-wrap gap-1">
-                    {business.vatRegistered && (
-                      <Badge variant="default" className="text-xs">
-                        VAT
-                      </Badge>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleAddAsLead(business)}
+                    disabled={loadingId === business.id}
+                    className="w-full"
+                  >
+                    {loadingId === business.id ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Legger til...
+                      </>
+                    ) : (
+                      "Legg til lead"
                     )}
-                    {business.isBankrupt && (
-                      <Badge variant="destructive" className="text-xs">
-                        Bankrupt
-                      </Badge>
-                    )}
-                    {business.isWindingUp && (
-                      <Badge variant="destructive" className="text-xs">
-                        Winding Up
-                      </Badge>
-                    )}
-                    {!business.vatRegistered &&
-                      !business.isBankrupt &&
-                      !business.isWindingUp && (
-                        <span className="text-muted-foreground text-xs">
-                          Active
-                        </span>
-                      )}
-                  </div>
-                </TableCell>
-
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="h-8 w-8 p-0">
-                        <span className="sr-only">Open menu</span>
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem
-                        onClick={() =>
-                          navigator.clipboard.writeText(business.orgNumber)
-                        }
-                      >
-                        Copy org number
-                      </DropdownMenuItem>
-                      {business.website && (
-                        <DropdownMenuItem
-                          onClick={() =>
-                            window.open(business.website!, "_blank")
-                          }
-                        >
-                          Visit website
-                        </DropdownMenuItem>
-                      )}
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        onClick={() => handleAddAsLead(business)}
-                      >
-                        Add as Lead
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  </Button>
                 </TableCell>
               </TableRow>
             ))
