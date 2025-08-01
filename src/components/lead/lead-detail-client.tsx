@@ -360,7 +360,6 @@ export default function LeadDetailClient({
   const handleLeadUpdate = (updatedLeadData: Partial<LeadWithDetails>) => {
     setLead((prev) => (prev ? { ...prev, ...updatedLeadData } : null));
     setIsEditSheetOpen(false);
-    toast.success("Lead-detaljer oppdatert!");
   };
 
   return (
@@ -447,7 +446,14 @@ export default function LeadDetailClient({
                 <IconPlus size={16} className="mr-1.5" />
                 Ny aktivitet
               </Button>
-              <AddTaskButtonWrapper workspaceId={workspaceId} businessId={lead.id} />
+              <AddTaskButtonWrapper 
+                workspaceId={workspaceId} 
+                businessId={lead.id}
+                variant="outline"
+                size="sm"
+                className="flex-1"
+                iconType="tabler"
+              />
             </div>
 
             {/* Contact Info Group */}

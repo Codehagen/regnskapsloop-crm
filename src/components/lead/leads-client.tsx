@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useTransition } from "react";
-import { LayoutGrid, Table as TableIcon, Search } from "lucide-react";
+import { LayoutGrid, Table as TableIcon, Search, X } from "lucide-react";
+import { useDebounce } from "use-debounce";
 import { IconListCheck } from "@tabler/icons-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
@@ -11,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { DataTable } from "@/components/lead/data-table";
 import { KanbanView } from "@/components/lead/kanban-view";
 import { Business, CustomerStage, Task } from "@/app/generated/prisma";
-import { updateLeadStatus } from "@/app/actions/leads/actions";
+import { updateLeadStatus, getLeads } from "@/app/actions/leads/actions";
 import { searchLeadsAction } from "@/app/actions/leads/searchLeadsAction";
 import { getTasks } from "@/app/actions/tasks/actions";
 import { columns } from "@/components/lead/columns";
@@ -57,6 +58,7 @@ export default function LeadsClient({
   // Start in loading state to show skeleton initially
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 300); // 300ms debounce
   const [isPending, startTransition] = useTransition(); // For search loading state
 
   // Set loading to false after initial mount
@@ -86,6 +88,28 @@ export default function LeadsClient({
         });
     }
   }, [view, workspaceId, tasks.length]);
+
+  // Auto-search when debounced search term changes
+  useEffect(() => {
+    if (loading) return; // Don't search during initial load
+
+    startTransition(async () => {
+      try {
+        if (debouncedSearchTerm.trim() === "") {
+          // If search is empty, fetch all leads
+          const allLeads = await getLeads(workspaceId);
+          setLeads(allLeads);
+        } else {
+          // Perform search with debounced term
+          const searchResults = await searchLeadsAction(debouncedSearchTerm);
+          setLeads(searchResults);
+        }
+      } catch (error) {
+        console.error("Error during auto-search:", error);
+        toast.error("Kunne ikke utføre søk");
+      }
+    });
+  }, [debouncedSearchTerm, workspaceId, loading]);
 
   // Function to update a lead's status
   const handleStatusChange = async (
@@ -130,32 +154,7 @@ export default function LeadsClient({
     }
   };
 
-  // Function to handle search
-  const handleSearch = () => {
-    startTransition(async () => {
-      try {
-        const searchResults = await searchLeadsAction(searchTerm);
-        setLeads(searchResults);
-        if (searchResults.length === 0 && searchTerm !== "") {
-          toast.info(`Ingen leads funnet for "${searchTerm}".`);
-        } else if (searchTerm === "") {
-          // Optional: Show a toast when clearing the search?
-          // toast.info("Viser alle leads.");
-        }
-      } catch (error) {
-        console.error("Search failed:", error);
-        toast.error("Søk feilet. Prøv igjen.");
-        // Optionally revert to initialLeads on error, or keep the current state
-        // setLeads(initialLeads);
-      }
-    });
-  };
 
-  // Placeholder for triggering the 'Add Lead' form/modal
-  const handleAddNewLead = () => {
-    // TODO: Implement logic to open a modal or navigate to a 'new lead' page
-    toast.info("Funksjonen 'Ny Lead' er ikke implementert enda.");
-  };
 
   // Determine content based on state
   const renderContent = () => {
@@ -200,7 +199,20 @@ export default function LeadsClient({
         <EmptyState
           title={`Ingen resultater for "${searchTerm}"`}
           description="Prøv et annet søkeord eller tøm søkefeltet for å se alle leads."
-          // No action needed here, the user can clear the search input
+          actionLabel="Tøm søk"
+          onAction={() => {
+            setSearchTerm("");
+            // Fetch all leads when clearing search
+            startTransition(async () => {
+              try {
+                const allLeads = await getLeads(workspaceId);
+                setLeads(allLeads);
+              } catch (error) {
+                console.error("Error fetching leads:", error);
+                toast.error("Kunne ikke hente leads");
+              }
+            });
+          }}
         />
       );
     }
@@ -211,8 +223,6 @@ export default function LeadsClient({
         <EmptyState
           title="Ingen leads funnet"
           description="Kom i gang ved å legge til din første lead."
-          actionLabel="Legg til Lead"
-          onAction={handleAddNewLead} // Connect to add lead action
         />
       );
     }
@@ -240,24 +250,31 @@ export default function LeadsClient({
       {/* Top controls: Search and View Switcher */}
       <div className="flex items-center justify-between mb-6">
         {/* Search Input */}
-        <div className="flex items-center w-full max-w-sm">
+        <div className="relative w-full max-w-sm">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Søk etter leads..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="mr-2"
-            disabled={isPending} // Disable input while searching
-          />
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={handleSearch}
+            className="pl-10 pr-10"
             disabled={isPending}
-          >
-            {" "}
-            <Search className="h-4 w-4" />
-          </Button>
+          />
+          {searchTerm && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6"
+              onClick={() => setSearchTerm("")}
+              disabled={isPending}
+            >
+              <X className="h-3 w-3" />
+            </Button>
+          )}
+          {isPending && (
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full"></div>
+            </div>
+          )}
         </div>
 
         {/* View Switcher Tabs */}

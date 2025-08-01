@@ -76,7 +76,7 @@ export async function createInitialWorkspace(formData: FormData) {
     console.warn(
       `User ${clerkId} (ID: ${user.id}) attempted onboarding but already has a workspace. Redirecting.`
     );
-    redirect("/");
+    redirect("/dashboard");
   }
 
   try {
@@ -110,8 +110,8 @@ export async function createInitialWorkspace(formData: FormData) {
     throw new Error("Could not create your workspace. Please try again.");
   }
 
-  // Redirect to the main application page after successful creation
-  redirect("/");
+  // Redirect to the dashboard after successful creation
+  redirect("/dashboard");
 }
 
 /**
