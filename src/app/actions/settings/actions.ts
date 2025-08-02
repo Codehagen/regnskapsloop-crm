@@ -185,3 +185,55 @@ export async function updateWorkspaceName(formData: FormData) {
     };
   }
 }
+
+// Get all members of a workspace
+export async function getWorkspaceMembers(workspaceId: string) {
+  const user = await currentUser();
+  if (!user) {
+    return { success: false, message: "Bruker ikke autentisert", data: [] };
+  }
+
+  // Check if user has access to this workspace
+  const isAdmin = await isCurrentUserWorkspaceAdmin(workspaceId);
+  if (!isAdmin) {
+    return { success: false, message: "Ingen tilgang til arbeidsområde", data: [] };
+  }
+
+  try {
+    const workspace = await prisma.workspace.findUnique({
+      where: { id: workspaceId },
+      include: {
+        users: {
+          select: {
+            id: true,
+            clerkId: true,
+            email: true,
+            name: true,
+            isAdmin: true,
+            createdAt: true,
+          },
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
+      },
+    });
+
+    if (!workspace) {
+      return { success: false, message: "Arbeidsområde ikke funnet", data: [] };
+    }
+
+    return {
+      success: true,
+      data: workspace.users,
+    };
+  } catch (error) {
+    console.error("Error fetching workspace members:", error);
+    return {
+      success: false,
+      message: "Kunne ikke hente medlemmer",
+      data: [],
+      error: error instanceof Error ? error.message : "Ukjent feil",
+    };
+  }
+}

@@ -4,11 +4,13 @@ import { currentUser } from "@clerk/nextjs/server"; // Import currentUser
 import { ProfileForm } from "@/components/settings/profile-form"; // Import the form
 import {
   isCurrentUserWorkspaceAdmin,
+  getWorkspaceMembers,
   // Assuming a function to get workspace details might be here or elsewhere
   // getWorkspaceDetails, // Placeholder idea
 } from "@/app/actions/settings/actions"; // Import admin check
 import { redirect } from "next/navigation";
 import { WorkspaceForm } from "@/components/settings/workspace-form"; // Import WorkspaceForm
+import { WorkspaceMembers } from "@/components/settings/workspace-members"; // Import WorkspaceMembers
 import { prisma } from "@/lib/db"; // Import prisma for fetching workspace details
 
 export const metadata: Metadata = {
@@ -40,6 +42,7 @@ export default async function SettingsPage() {
   const activeWorkspaceId = await getActiveWorkspaceIdForUser(user.id);
   let isWorkspaceAdmin = false;
   let workspaceData: { id: string; name: string } | null = null;
+  let workspaceMembers: any[] = [];
 
   if (activeWorkspaceId) {
     isWorkspaceAdmin = await isCurrentUserWorkspaceAdmin(activeWorkspaceId);
@@ -49,6 +52,14 @@ export default async function SettingsPage() {
       where: { id: activeWorkspaceId },
       select: { id: true, name: true },
     });
+
+    // Fetch workspace members if user is admin
+    if (isWorkspaceAdmin) {
+      const membersResult = await getWorkspaceMembers(activeWorkspaceId);
+      if (membersResult.success) {
+        workspaceMembers = membersResult.data;
+      }
+    }
     // }
   } else {
     // Handle case where user has no active workspace? Show a message?
@@ -91,6 +102,8 @@ export default async function SettingsPage() {
           <TabsContent value="workspace" className="space-y-4">
             {/* Integrate the WorkspaceForm */}
             <WorkspaceForm workspace={workspaceData} />
+            {/* Workspace Members */}
+            <WorkspaceMembers members={workspaceMembers} />
             {/* Other workspace settings components will go here later */}
           </TabsContent>
         )}
