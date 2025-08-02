@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useMemo } from "react";
 import {
   Table,
   TableBody,
@@ -40,7 +40,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MoreHorizontal, Plus, UserMinus } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { UserEditDialog } from "@/components/admin/user-edit-dialog";
+import { MoreHorizontal, Plus, UserMinus, Edit, Search, Filter } from "lucide-react";
 import { toast } from "sonner";
 import {
   assignUserToWorkspace,
@@ -78,7 +80,12 @@ export function UserManagementTable({ users, workspaces }: UserManagementTablePr
   const [isPending, startTransition] = useTransition();
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
   const [selectedWorkspace, setSelectedWorkspace] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterRole, setFilterRole] = useState<string>("all");
+  const [filterWorkspace, setFilterWorkspace] = useState<string>("all");
 
   const handleAssignToWorkspace = () => {
     if (!selectedUser || !selectedWorkspace) return;
@@ -129,9 +136,40 @@ export function UserManagementTable({ users, workspaces }: UserManagementTablePr
     });
   };
 
+  // Filter and search logic
+  const filteredUsers = useMemo(() => {
+    return users.filter(user => {
+      // Search filter
+      const matchesSearch = searchTerm === "" || 
+        user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase());
+
+      // Role filter
+      const matchesRole = filterRole === "all" ||
+        (filterRole === "admin" && user.isAdmin) ||
+        (filterRole === "user" && !user.isAdmin);
+
+      // Workspace filter
+      const matchesWorkspace = filterWorkspace === "all" ||
+        user.workspaces.some(w => w.id === filterWorkspace);
+
+      return matchesSearch && matchesRole && matchesWorkspace;
+    });
+  }, [users, searchTerm, filterRole, filterWorkspace]);
+
   const getAvailableWorkspaces = (user: User) => {
     const userWorkspaceIds = user.workspaces.map(w => w.id);
     return workspaces.filter(w => !userWorkspaceIds.includes(w.id));
+  };
+
+  const handleEditUser = (user: User) => {
+    setEditingUser(user);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUserUpdated = () => {
+    // Optionally refresh data or show success message
+    // The revalidatePath in the server action should handle the refresh
   };
 
   return (
@@ -143,6 +181,49 @@ export function UserManagementTable({ users, workspaces }: UserManagementTablePr
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {/* Search and Filter Controls */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Søk etter navn eller e-post..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+          <Select value={filterRole} onValueChange={setFilterRole}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filtrer etter rolle" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Alle roller</SelectItem>
+              <SelectItem value="admin">Administrator</SelectItem>
+              <SelectItem value="user">Bruker</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={filterWorkspace} onValueChange={setFilterWorkspace}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Filtrer etter arbeidsområde" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Alle arbeidsområder</SelectItem>
+              {workspaces.map((workspace) => (
+                <SelectItem key={workspace.id} value={workspace.id}>
+                  {workspace.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Results Count */}
+        <div className="flex justify-between items-center mb-4">
+          <p className="text-sm text-muted-foreground">
+            Viser {filteredUsers.length} av {users.length} brukere
+          </p>
+        </div>
+
         <Table>
           <TableHeader>
             <TableRow>
@@ -155,7 +236,18 @@ export function UserManagementTable({ users, workspaces }: UserManagementTablePr
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users.map((user) => (
+            {filteredUsers.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-8">
+                  <div className="text-muted-foreground">
+                    <Filter className="mx-auto h-8 w-8 mb-2" />
+                    <p>Ingen brukere funnet</p>
+                    <p className="text-sm">Prøv å justere søkekriteriene</p>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              filteredUsers.map((user) => (
               <TableRow key={user.id}>
                 <TableCell className="flex items-center space-x-3">
                   <Avatar className="h-8 w-8">
@@ -212,6 +304,12 @@ export function UserManagementTable({ users, workspaces }: UserManagementTablePr
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem
+                        onClick={() => handleEditUser(user)}
+                      >
+                        <Edit className="mr-2 h-4 w-4" />
+                        Rediger bruker
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
                         onClick={() => {
                           setSelectedUser(user);
                           setIsAssignDialogOpen(true);
@@ -231,7 +329,8 @@ export function UserManagementTable({ users, workspaces }: UserManagementTablePr
                   </DropdownMenu>
                 </TableCell>
               </TableRow>
-            ))}
+              ))
+            )}
           </TableBody>
         </Table>
 
@@ -275,6 +374,14 @@ export function UserManagementTable({ users, workspaces }: UserManagementTablePr
             </div>
           </DialogContent>
         </Dialog>
+
+        {/* User Edit Dialog */}
+        <UserEditDialog
+          user={editingUser}
+          open={isEditDialogOpen}
+          onOpenChange={setIsEditDialogOpen}
+          onUserUpdated={handleUserUpdated}
+        />
       </CardContent>
     </Card>
   );
