@@ -105,6 +105,21 @@ export async function updateLeadStatus(
   }
 }
 
+// Helper function to normalize URLs
+function normalizeUrl(url: string | undefined | null): string | undefined {
+  if (!url || url.trim() === "") return undefined;
+  
+  const trimmedUrl = url.trim();
+  
+  // If it already has a protocol, return as is
+  if (trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")) {
+    return trimmedUrl;
+  }
+  
+  // Add https:// to URLs without protocol
+  return `https://${trimmedUrl}`;
+}
+
 // Define the schema for the input object
 const updateLeadSchema = z.object({
   id: z.string(),
@@ -112,7 +127,7 @@ const updateLeadSchema = z.object({
   email: z.string().email("Ugyldig e-post").optional().or(z.literal("")),
   phone: z.string().optional().or(z.literal("")),
   contactPerson: z.string().optional().or(z.literal("")),
-  website: z.string().url("Ugyldig URL").optional().or(z.literal("")),
+  website: z.string().optional().or(z.literal("")),
   address: z.string().optional().or(z.literal("")),
   postalCode: z.string().optional().or(z.literal("")),
   city: z.string().optional().or(z.literal("")),
@@ -155,6 +170,11 @@ export async function updateLeadDetails(
   try {
     // TODO: Add authorization check
     console.log(`Updating lead ${id} with data:`, dataToUpdate);
+
+    // Normalize the website URL before saving
+    if (dataToUpdate.website) {
+      dataToUpdate.website = normalizeUrl(dataToUpdate.website) || "";
+    }
 
     const updatedLead = await prisma.business.update({
       where: { id: id },

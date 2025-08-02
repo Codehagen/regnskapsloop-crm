@@ -4,6 +4,21 @@ import { prisma } from "@/lib/db";
 import { BusinessStatus, CustomerStage } from "@/app/generated/prisma";
 import { fetchBrregData, mergeBrregData } from "@/lib/brreg"; // Import Brreg functions
 
+// Helper function to normalize URLs
+function normalizeUrl(url: string | undefined | null): string | undefined {
+  if (!url || url.trim() === "") return undefined;
+  
+  const trimmedUrl = url.trim();
+  
+  // If it already has a protocol, return as is
+  if (trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")) {
+    return trimmedUrl;
+  }
+  
+  // Add https:// to URLs without protocol
+  return `https://${trimmedUrl}`;
+}
+
 // Define validation schema for incoming lead data
 const leadSchema = z.object({
   name: z.string().min(1, "Navn er påkrevd"),
@@ -77,6 +92,9 @@ export async function POST(req: NextRequest) {
 
     const data = validationResult.data;
 
+    // Normalize the website URL before saving
+    const normalizedWebsite = normalizeUrl(data.website);
+
     // Create a new lead
     const lead = await prisma.business.create({
       data: {
@@ -85,7 +103,7 @@ export async function POST(req: NextRequest) {
         phone: data.phone,
         orgNumber: data.orgNumber,
         contactPerson: data.contactPerson,
-        website: data.website,
+        website: normalizedWebsite,
         address: data.address,
         postalCode: data.postalCode,
         city: data.city,
