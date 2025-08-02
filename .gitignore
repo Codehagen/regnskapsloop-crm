@@ -47,4 +47,6 @@ next-env.d.ts
 
 venv/
 
+src/app/generated/
+
 enheter_*.csvenheter_*.csv
