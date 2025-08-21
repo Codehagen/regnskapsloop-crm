@@ -70,7 +70,7 @@ export default async function SettingsPage() {
   // Prepare user data for the form
   const profileData = {
     id: user.id,
-    name: user.firstName || user.username, // Use firstName or username
+    name: user.firstName || user.username, // Use firstName or u
     email: user.emailAddresses[0]?.emailAddress, // Get primary email
   };
 
