@@ -34,7 +34,7 @@ export function getStatusBadgeProps(stage: CustomerStage) {
       label: "Kvalifisert",
       variant: "default",
       icon: <CheckCircle className="h-4 w-4" />,
-      description: "Kvalifisert lead klar for tilbud",
+      description: "Tilbud sendt til lead",
     },
     customer: {
       label: "Kunde",

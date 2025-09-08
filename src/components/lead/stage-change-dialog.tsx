@@ -37,7 +37,7 @@ const stageColumns: {
   {
     id: "qualified",
     title: "Kvalifisert",
-    description: "Kvalifiserte leads klare for tilbud",
+    description: "Leads som har fått tilbud",
   },
   { id: "customer", title: "Kunde", description: "Konvertert til kunde" },
   { id: "churned", title: "Tapt", description: "Tapte leads" },
