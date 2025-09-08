@@ -521,8 +521,7 @@ export async function addLeadActivity(formData: FormData) {
   const type = formData.get("type") as ActivityType; // Get type from form
   const description = formData.get("description") as string; // Map component's "title" here
   const clerkId = formData.get("clerkId") as string;
-  // Optionally get outcome/details if component passes it later
-  // const outcome = formData.get("outcome") as string;
+  const outcome = formData.get("outcome") as string; // Get details/outcome from form
 
   // Basic validation
   if (!leadId || !workspaceId || !type || !description || !clerkId) {
@@ -568,7 +567,7 @@ export async function addLeadActivity(formData: FormData) {
         type: type,
         date: new Date(),
         description: description, // Store component's title here
-        // outcome: outcome || undefined, // Store component's description/details here if needed later
+        outcome: outcome || undefined, // Store component's description/details here
         businessId: leadId,
         workspaceId: workspaceId,
         userId: user.id, // Use the looked-up internal user ID

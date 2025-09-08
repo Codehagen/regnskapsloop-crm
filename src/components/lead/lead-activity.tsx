@@ -153,6 +153,7 @@ export function LeadActivity({
     formData.append("clerkId", userId);
     formData.append("type", newActivity.type);
     formData.append("description", newActivity.title); // Map component title to Prisma description
+    formData.append("outcome", newActivity.description); // Map component description to Prisma outcome
 
     try {
       const result = await addLeadActivity(formData);
@@ -191,6 +192,17 @@ export function LeadActivity({
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+
+  // Helper to get user initials
+  const getInitials = (name?: string | null): string => {
+    if (!name) return "?";
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .substring(0, 2)
+      .toUpperCase();
   };
 
   // Combine lead creation and activities for rendering, sorted by date descending
@@ -290,7 +302,7 @@ export function LeadActivity({
                       description: e.target.value,
                     })
                   }
-                  placeholder="Legg til flere detaljer om aktiviteten (ikke lagret enda)" // Indicate not saved yet
+                  placeholder="Legg til flere detaljer om aktiviteten..." // Updated placeholder
                   disabled={isSubmitting}
                 />
               </div>
@@ -349,11 +361,35 @@ export function LeadActivity({
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div>
-                    {
-                      // Display Prisma's description as the main title
-                      <h4 className="font-medium">{entry.description}</h4>
-                    }
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 min-w-0">
+                      {
+                        // Display Prisma's description as the main title
+                        <h4 className="font-medium">{entry.description}</h4>
+                      }
+                      {
+                        // Display outcome (additional details) if available
+                        entry.type !== "lead_created" && (entry as any).outcome && (
+                          <p className="text-sm text-muted-foreground mt-1 whitespace-pre-wrap">
+                            {(entry as any).outcome}
+                          </p>
+                        )
+                      }
+                    </div>
+                    
+                    {/* User info for activities (not for lead_created) */}
+                    {entry.type !== "lead_created" && (entry as any).user && (
+                      <div className="flex items-center gap-2 flex-shrink-0 ml-4">
+                        <Avatar className="h-6 w-6">
+                          <AvatarFallback className="bg-primary/10 text-primary text-xs">
+                            {getInitials((entry as any).user?.name)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="text-xs text-muted-foreground">
+                          {(entry as any).user?.name || (entry as any).user?.email || "Ukjent"}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
